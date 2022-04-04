@@ -24,6 +24,7 @@ public class MainController {
 		return "home";
 		
 		//test coommit
+		//commit 2
 	}
 
 }
