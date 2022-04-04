@@ -14,7 +14,8 @@ import com.maybank.springboot.library.service.BookService;
 public class MainController {
 	@Autowired
 	BookService bookService;
-	
+
+	// New Commit
 	@RequestMapping("/")
 	public String home(Model model) {
 		List<Book> displayBooks = bookService.listAllBook();
@@ -22,4 +23,5 @@ public class MainController {
 		model.addAttribute("Books", displayBooks);
 		return "home";
 	}
+
 }
