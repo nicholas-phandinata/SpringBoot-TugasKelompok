@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<meta charset="utf-8" />
+<title>Card View</title>
+</head>
+<body>
+	<div class="card">
+		<div class="card-header">
+			<p class="h4 mb-2 text-center">Add Product</p>
+		</div>
+		<div class="card-body">
+			<form th:action="@{/users/save}" th:object="${user}" method="post"
+				enctype="multipart/form-data">
+				...
+				<div>
+
+					<label>Photos: </label> <input type="file" name="image"
+						accept="image/png, image/jpeg" />
+
+				</div>
+				...
+			</form>
+		</div>
+	</div>
+</body>
+</html>

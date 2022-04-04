@@ -20,4 +20,17 @@ public class BookServiceImpl implements BookService{
 		return bookRepo.findAll();
 	}
 
+	@Override
+	public Book listBookByID(int bookID) {
+		// TODO Auto-generated method stub
+		return bookRepo.findById(bookID).orElse(null);
+	}
+
+	@Override
+	public String updateQuantity(int quantity, int bookID) {
+		// TODO Auto-generated method stub
+		bookRepo.updateQuantity(quantity, bookID);
+		return "Update Quantity Successfull";
+	}
+
 }
