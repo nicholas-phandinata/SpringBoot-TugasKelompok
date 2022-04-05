@@ -1,5 +1,7 @@
 package com.maybank.springboot.library.repository;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,4 +16,7 @@ public interface BookRepository extends JpaRepository<Book, Integer>{
 	@Query(value = "Update book SET quantity = :quantity WHERE book_id = :bookID", nativeQuery = true)
 	@Transactional
 	void updateQuantity(@Param("quantity") int quantity, @Param("bookID") int bookID);
+	
+	@Query("SELECT b FROM Book b WHERE b.quantity > 0")
+	List<Book> listAvailableBook();
 }

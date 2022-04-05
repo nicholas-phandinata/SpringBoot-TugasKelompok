@@ -6,23 +6,32 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import com.maybank.springboot.library.model.Category;
 import com.maybank.springboot.library.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import com.lowagie.text.DocumentException;
 import com.maybank.springboot.library.model.Approve;
 import com.maybank.springboot.library.model.Book;
 import com.maybank.springboot.library.model.Rent;
+import com.maybank.springboot.library.model.UserPDFExporter;
 import com.maybank.springboot.library.service.ApproveService;
 import com.maybank.springboot.library.service.BookService;
 
 import com.maybank.springboot.library.service.RentService;
+import com.maybank.springboot.library.service.user.UserService;
 
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -40,20 +49,24 @@ public class MainController {
 	
 	@Autowired
 	ApproveService approveService;
+	
+	@Autowired
+	UserService userService;
 
 	@RequestMapping("/")
 	public String home(Model model) {
-		List<Book> displayBooks = bookService.listAllBook();
+		List<Book> displayBooks = bookService.listAvailableBook();
 //		System.out.println(displayBooks);
 		model.addAttribute("Books", displayBooks);
 		return "home";
-
-		
 	}
 	
 	@RequestMapping("rent")
 	public String rent(Model model) {
-		List<Rent> displayRent = rentService.listAllRent();
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		Long currentID =  userService.getCurrentID(currentUserName);
+
+		List<Rent> displayRent = rentService.listRentByUserID(currentID);
 //		System.out.println(displayRent);
 		model.addAttribute("Rents", displayRent);
 		return "rent";
@@ -64,29 +77,29 @@ public class MainController {
 			RedirectAttributes redirAttrs) {
 		Book book = bookService.getBookByID(book_id);
 		int quantity = book.getQuantity() - 1;
-		int account_id = 1;
 		
-		List<Rent> checkRent = rentService.checkRent(account_id, book_id);
-		List<Approve> checkApprove = approveService.checkApprove(account_id, book_id);
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		Long currentID =  userService.getCurrentID(currentUserName);
 		
-		int checkNumberRent = rentService.checkNumberRent(account_id);
-		int checkNumberApprove = approveService.checkNumberApprove(account_id);
+		List<Rent> checkRent = rentService.checkRent(currentID, book_id);
+		List<Approve> checkApprove = approveService.checkApprove(currentID, book_id);
+		
+		int checkNumberRent = rentService.checkNumberRent(currentID);
+		int checkNumberApprove = approveService.checkNumberApprove(currentID);
 		
 		int totalRent = checkNumberRent + checkNumberApprove;
 //		System.out.println("Check Rent: " + checkRent);
 //		System.out.println("Check Number of Rent: " + totalRent);
 		if(totalRent < 3) {
 			if(checkRent.isEmpty() & checkApprove.isEmpty()) {
-				rentService.saveRent(account_id, book_id);
+				rentService.saveRent(currentID, book_id);
 				bookService.updateQuantity(quantity, book_id);
 				redirAttrs.addFlashAttribute("msg_success", "Successfully Added to Cart!");
 			}else {
 				redirAttrs.addFlashAttribute("msg_danger", "You have already borrowed this book!");
-				System.out.println("You have already borrowed this book!");
 			}
 		}else {
 			redirAttrs.addFlashAttribute("msg_danger", "You have already borrowed too much book!");
-			System.out.println("You have already borrowed too much book!");
 		}
 		return "redirect:/";
 	}
@@ -96,11 +109,84 @@ public class MainController {
 		int getBookIDFromRent = rentService.getRentByID(rentID).getBook().getBook_id();
 		int BookQuantity = bookService.getBookByID(getBookIDFromRent).getQuantity() + 1;
 		rentService.deleteRent(rentID, getBookIDFromRent, BookQuantity);
-		return "redirect:../";
+		return "redirect:../rent";
 	}
 	
+	@RequestMapping("checkout")
+	public String checkout(Model model) {
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		Long currentID =  userService.getCurrentID(currentUserName);
+		
+		List<Approve> displayApprove = approveService.listApproveByID(currentID);
+		model.addAttribute("Approves", displayApprove);
+		return "checkout";
+	}
 	
-	// Admin
+	@RequestMapping("addCheckout/{rentID}")
+	public String addCheckout(@PathVariable int rentID) {
+		Long ID = rentService.getRentByID(rentID).getUser().getId();
+		int bookID = rentService.getRentByID(rentID).getBook().getBook_id();
+		String rentDate = rentService.getRentByID(rentID).getRent_date();
+		String returnDate = rentService.getRentByID(rentID).getReturn_date();
+		approveService.addApprove(rentID, ID, bookID, rentDate, returnDate);
+		return "redirect:../checkout";
+	}
+	
+	@RequestMapping("cancel-all")
+	public String cancelAll() {
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		Long currentID =  userService.getCurrentID(currentUserName);
+		
+		List<Rent> getRent = rentService.listRentByUserID(currentID);
+        getRent.forEach((item) -> {
+            int rentID = item.getRent_id();
+            int bookID = item.getBook().getBook_id();
+            int quantity = bookService.getBookByID(bookID).getQuantity() + 1;
+            
+    		rentService.deleteRent(rentID, bookID, quantity);
+        });
+		return "redirect:/rent";
+	}
+	
+	@RequestMapping("checkout-all")
+	public String checkoutAll() {
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		Long currentID =  userService.getCurrentID(currentUserName);
+		
+		List<Rent> getRent = rentService.listRentByUserID(currentID);
+        getRent.forEach((item) -> {
+            int rentID = item.getRent_id();
+            int bookID = item.getBook().getBook_id();
+            String rentDate = item.getRent_date();
+            String returnDate = item.getReturn_date();
+            
+            approveService.addApprove(rentID, currentID, bookID, rentDate, returnDate);
+        });
+		return "redirect:/checkout";
+	}
+	
+    @GetMapping("export")
+    public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+         
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=MyCheckout_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+        
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		Long currentID =  userService.getCurrentID(currentUserName);
+        
+		List<Approve> listApprove = approveService.listApproveByID(currentID);
+         
+        UserPDFExporter exporter = new UserPDFExporter(listApprove);
+        exporter.export(response);
+         
+    }
+	
+	
+	// -------------------------------Admin------------------------------------
 	// Controller admin list book
 		@RequestMapping("/admin/bookList")
 		public String adminListBook(Model model) {
@@ -181,27 +267,10 @@ public class MainController {
 			return "redirect:/admin/category";
 		}
 
-	// BAGIAN LOGIN
-	@GetMapping("/login")
-	public String login() {
-		return "login";
-	}
-	
-	@RequestMapping("checkout")
-	public String checkout(Model model) {
-		List<Approve> displayApprove = approveService.listAllApprove();
-		model.addAttribute("Approves", displayApprove);
-		return "checkout";
-	}
-	
-	@RequestMapping("addCheckout/{rentID}")
-	public String addCheckout(@PathVariable int rentID) {
-		int accountID = rentService.getRentByID(rentID).getAccount().getAccount_id();
-		int bookID = rentService.getRentByID(rentID).getBook().getBook_id();
-		String rentDate = rentService.getRentByID(rentID).getRent_date();
-		String returnDate = rentService.getRentByID(rentID).getReturn_date();
-		approveService.addApprove(rentID, accountID, bookID, rentDate, returnDate);
-		return "redirect:../";
-	}
+		// BAGIAN LOGIN
+		@GetMapping("/login")
+		public String login() {
+			return "login";
+		}
 
 }

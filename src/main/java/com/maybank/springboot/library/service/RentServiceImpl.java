@@ -25,22 +25,22 @@ public class RentServiceImpl implements RentService{
 	}
 
 	@Override
-	public String saveRent(int accountID, int bookID) {
+	public String saveRent(Long ID, int bookID) {
 		// TODO Auto-generated method stub
-		rentRepo.addRent(accountID, bookID);
+		rentRepo.addRent(ID, bookID);
 		return "New rent added successfully!";
 	}
 
 	@Override
-	public List<Rent> checkRent(int accountID, int bookID) {
+	public List<Rent> checkRent(Long ID, int bookID) {
 		// TODO Auto-generated method stub
-		return rentRepo.checkRent(accountID, bookID);
+		return rentRepo.checkRent(ID, bookID);
 	}
 
 	@Override
-	public int checkNumberRent(int accountID) {
+	public int checkNumberRent(Long ID) {
 		// TODO Auto-generated method stub
-		return rentRepo.checkNumberRent(accountID);
+		return rentRepo.checkNumberRent(ID);
 	}
 
 	@Override
@@ -55,6 +55,12 @@ public class RentServiceImpl implements RentService{
 		rentRepo.deleteById(rentID);
 		bookRepo.updateQuantity(quantity, bookID);
 		return "Delete rent successfully";
+	}
+
+	@Override
+	public List<Rent> listRentByUserID(Long ID) {
+		// TODO Auto-generated method stub
+		return rentRepo.listRentByUserID(ID);
 	}
 
 }

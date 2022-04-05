@@ -54,4 +54,10 @@ public class UserServiceImpl implements UserService {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
 
+	@Override
+	public Long getCurrentID(String email) {
+		// TODO Auto-generated method stub
+		return userRepository.getCurrentID(email);
+	}
+
 }

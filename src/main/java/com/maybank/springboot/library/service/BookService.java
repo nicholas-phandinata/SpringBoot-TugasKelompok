@@ -7,6 +7,7 @@ import com.maybank.springboot.library.model.Book;
 public interface BookService {
 	List<Book> listAllBook();
 
+	List<Book> listAvailableBook();
 	
 	Book getBookByID(int bookID);
 	

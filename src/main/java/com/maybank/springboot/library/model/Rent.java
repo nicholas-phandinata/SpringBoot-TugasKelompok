@@ -19,8 +19,8 @@ public class Rent {
 	private int rent_id;
 	
 	@ManyToOne
-	@JoinColumn(name = "account_id")
-	private Account account;
+	@JoinColumn(name = "id")
+	private User user;
 	
 	@ManyToOne
 	@JoinColumn(name = "book_id")
@@ -39,12 +39,12 @@ public class Rent {
 		this.rent_id = rent_id;
 	}
 
-	public Account getAccount() {
-		return account;
+	public User getUser() {
+		return user;
 	}
 
-	public void setAccount(Account account) {
-		this.account = account;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Book getBook() {

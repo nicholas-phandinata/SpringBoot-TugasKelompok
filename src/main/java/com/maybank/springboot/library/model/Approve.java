@@ -21,8 +21,8 @@ public class Approve {
 	private int rent_id;
 	
 	@OneToOne
-	@JoinColumn(name = "account_id")
-	private Account account;
+	@JoinColumn(name = "id")
+	private User user;
 	
 	@OneToOne
 	@JoinColumn(name = "book_id")

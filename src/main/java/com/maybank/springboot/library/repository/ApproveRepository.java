@@ -14,20 +14,23 @@ import com.maybank.springboot.library.model.Approve;
 public interface ApproveRepository extends JpaRepository<Approve, Integer>{
 	@Modifying
 	@Query(value = "insert into approve "
-			+ "(rent_id, account_id, book_id, rent_date, return_date) "
-			+ "VALUES (:rentID, :accountID, :bookID, :rentDate, :returnDate)", 
+			+ "(rent_id, id, book_id, rent_date, return_date) "
+			+ "VALUES (:rentID, :ID, :bookID, :rentDate, :returnDate)", 
 			nativeQuery = true)
 	@Transactional
 	void addApprove(@Param("rentID") int rentID, 
-			@Param("accountID") int accountID, 
+			@Param("ID") Long ID, 
 			@Param("bookID") int bookID, 
 			@Param("rentDate") String rentDate, 
 			@Param("returnDate") String returnDate);
 	
-	@Query("SELECT COUNT(a) FROM Approve a WHERE a.account.account_id = ?1")
-    int checkNumberApprove(int accountID);
+	@Query("SELECT COUNT(a) FROM Approve a WHERE a.user.id = ?1")
+    int checkNumberApprove(Long ID);
 	
-	@Query("SELECT a FROM Approve a WHERE a.account.account_id = ?1 AND a.book.book_id = ?2")
-	List<Approve> checkApprove(int accountID, int bookID);
+	@Query("SELECT a FROM Approve a WHERE a.user.id = ?1 AND a.book.book_id = ?2")
+	List<Approve> checkApprove(Long ID, int bookID);
+	
+	@Query("SELECT a FROM Approve a WHERE a.user.id = ?1")
+	List<Approve> listApproveByUserID(Long ID);
 
 }

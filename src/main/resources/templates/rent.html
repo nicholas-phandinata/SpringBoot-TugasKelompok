@@ -74,10 +74,15 @@
 					<td><a th:href="@{'/deleteRent/' + ${item.rent_id}}"
 						class="btn btn-danger btn-sm">Cancel</a></td>
 					<td><a th:href="@{'/addCheckout/' + ${item.rent_id}}"
-						class="btn btn-success btn-sm">Confirm</a></td>
+						class="btn btn-success btn-sm">Checkout</a></td>
 				</tr>
 			</tbody>
 		</table>
+		<br><br>
+		<a th:href="@{/cancel-all}"
+		 class="btn btn-danger btn-sm">Cancel All</a>
+		<a th:href="@{/checkout-all}"
+		 class="btn btn-success btn-sm">Checkout All</a>
 	</div>
 </body>
 </html>

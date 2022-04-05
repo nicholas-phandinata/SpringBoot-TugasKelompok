@@ -7,11 +7,13 @@ import com.maybank.springboot.library.model.Approve;
 public interface ApproveService {
 	List<Approve> listAllApprove();
 	
-	String addApprove(int rentID, int accountID, int bookID, 
+	List<Approve> listApproveByID(Long ID);
+	
+	String addApprove(int rentID, Long ID, int bookID, 
 			String rentDate, String returnDate);
 	
-	int checkNumberApprove(int accountID);
+	int checkNumberApprove(Long ID);
 	
-	List<Approve> checkApprove(int accountID, int bookID);
+	List<Approve> checkApprove(Long ID, int bookID);
 
 }

@@ -13,14 +13,17 @@ import com.maybank.springboot.library.model.Rent;
 
 public interface RentRepository extends JpaRepository<Rent, Integer> {
 	@Modifying
-	@Query(value = "insert into rent (account_id,book_id) VALUES (:accountID,:bookID)", nativeQuery = true)
+	@Query(value = "insert into rent (id,book_id) VALUES (:ID,:bookID)", nativeQuery = true)
 	@Transactional
-	void addRent(@Param("accountID") int accountID, @Param("bookID") int bookID);
+	void addRent(@Param("ID") Long ID, @Param("bookID") int bookID);
 	
-	@Query("SELECT r FROM Rent r WHERE r.account.account_id = ?1 AND r.book.book_id = ?2")
-	List<Rent> checkRent(int accountID, int bookID);
+	@Query("SELECT r FROM Rent r WHERE r.user.id = ?1 AND r.book.book_id = ?2")
+	List<Rent> checkRent(Long ID, int bookID);
 	
-	@Query("SELECT COUNT(r) FROM Rent r WHERE r.account.account_id = ?1")
-    int checkNumberRent(int accountID);
+	@Query("SELECT COUNT(r) FROM Rent r WHERE r.user.id = ?1")
+    int checkNumberRent(Long ID);
+	
+	@Query("SELECT r FROM Rent r WHERE r.user.id = ?1")
+	List<Rent> listRentByUserID(Long ID);
 	
 }

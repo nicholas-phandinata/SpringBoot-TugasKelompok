@@ -24,23 +24,29 @@ public class ApproveServiceImpl implements ApproveService{
 	}
 
 	@Override
-	public String addApprove(int rentID, int accountID, int bookID, 
+	public String addApprove(int rentID, Long ID, int bookID, 
 			String rentDate, String returnDate) {
 		// TODO Auto-generated method stub
-		approveRepo.addApprove(rentID, accountID, bookID, rentDate, returnDate);
+		approveRepo.addApprove(rentID, ID, bookID, rentDate, returnDate);
 		rentRepo.deleteById(rentID);
 		return "New approve added successfully!";
 	}
 
 	@Override
-	public int checkNumberApprove(int accountID) {
+	public int checkNumberApprove(Long ID) {
 		// TODO Auto-generated method stub
-		return approveRepo.checkNumberApprove(accountID);
+		return approveRepo.checkNumberApprove(ID);
 	}
 
 	@Override
-	public List<Approve> checkApprove(int accountID, int bookID) {
+	public List<Approve> checkApprove(Long ID, int bookID) {
 		// TODO Auto-generated method stub
-		return approveRepo.checkApprove(accountID, bookID);
+		return approveRepo.checkApprove(ID, bookID);
+	}
+
+	@Override
+	public List<Approve> listApproveByID(Long ID) {
+		// TODO Auto-generated method stub
+		return approveRepo.listApproveByUserID(ID);
 	}
 }
