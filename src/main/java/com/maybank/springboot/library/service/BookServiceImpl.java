@@ -2,6 +2,7 @@ package com.maybank.springboot.library.service;
 
 import java.util.List;
 
+import com.maybank.springboot.library.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ public class BookServiceImpl implements BookService{
 	
 	@Autowired
 	BookRepository bookRepo;
+
 
 	@Override
 	public List<Book> listAllBook() {
@@ -31,6 +33,12 @@ public class BookServiceImpl implements BookService{
 		// TODO Auto-generated method stub
 		bookRepo.updateQuantity(quantity, bookID);
 		return "Update Quantity Successfull";
+	}
+
+	@Override
+	public Book saveBook(Book book) {
+		return bookRepo.save(book);
+
 	}
 
 }
