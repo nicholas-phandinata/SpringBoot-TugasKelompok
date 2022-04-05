@@ -30,7 +30,6 @@ public class Rent {
 	
 	private String return_date;
 	
-	private int fines;
 
 	public int getRent_id() {
 		return rent_id;
@@ -71,14 +70,5 @@ public class Rent {
 	public void setReturn_date(String return_date) {
 		this.return_date = return_date;
 	}
-
-	public int getFines() {
-		return fines;
-	}
-
-	public void setFines(int fines) {
-		this.fines = fines;
-	}
-	
 	
 }

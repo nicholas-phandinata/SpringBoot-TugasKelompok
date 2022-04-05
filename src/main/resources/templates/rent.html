@@ -27,6 +27,8 @@
 					</a></li>
 					<li class="nav-item"><a class="nav-link" href="/rent">My
 							Rent Cart</a></li>
+					<li class="nav-item"><a class="nav-link" href="/checkout">My
+							Checkout</a></li>
 				</ul>
 			</div>
 			<div class="navbar-nav navbar-right">
@@ -59,6 +61,7 @@
 					<th>Rent Date</th>
 					<th>Return Date</th>
 					<th>Cancel</th>
+					<th>Confirm</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -70,6 +73,8 @@
 					<td th:text="${item.return_date}"></td>
 					<td><a th:href="@{'/deleteRent/' + ${item.rent_id}}"
 						class="btn btn-danger btn-sm">Cancel</a></td>
+					<td><a th:href="@{'/addCheckout/' + ${item.rent_id}}"
+						class="btn btn-success btn-sm">Confirm</a></td>
 				</tr>
 			</tbody>
 		</table>

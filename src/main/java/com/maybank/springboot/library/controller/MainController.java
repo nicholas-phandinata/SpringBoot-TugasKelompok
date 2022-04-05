@@ -16,8 +16,10 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import com.maybank.springboot.library.model.Approve;
 import com.maybank.springboot.library.model.Book;
 import com.maybank.springboot.library.model.Rent;
+import com.maybank.springboot.library.service.ApproveService;
 import com.maybank.springboot.library.service.BookService;
 
 import com.maybank.springboot.library.service.RentService;
@@ -36,7 +38,8 @@ public class MainController {
 	@Autowired
 	CategoryService categoryService;
 	
-	// User
+	@Autowired
+	ApproveService approveService;
 
 	@RequestMapping("/")
 	public String home(Model model) {
@@ -57,32 +60,35 @@ public class MainController {
 	}
 	
 	@RequestMapping("addToCart")
-	public String addToCart(@RequestParam("bookID") int book_id, RedirectAttributes redirAttrs) {
+	public String addToCart(@RequestParam("bookID") int book_id,
+			RedirectAttributes redirAttrs) {
 		Book book = bookService.getBookByID(book_id);
 		int quantity = book.getQuantity() - 1;
 		int account_id = 1;
+		
 		List<Rent> checkRent = rentService.checkRent(account_id, book_id);
+		List<Approve> checkApprove = approveService.checkApprove(account_id, book_id);
+		
 		int checkNumberRent = rentService.checkNumberRent(account_id);
-		System.out.println("Check Rent: " + checkRent);
-		System.out.println("Check Number of Rent: " + checkNumberRent);
-		if (checkNumberRent < 3) {
-			if (checkRent.isEmpty()) {
+		int checkNumberApprove = approveService.checkNumberApprove(account_id);
+		
+		int totalRent = checkNumberRent + checkNumberApprove;
+//		System.out.println("Check Rent: " + checkRent);
+//		System.out.println("Check Number of Rent: " + totalRent);
+		if(totalRent < 3) {
+			if(checkRent.isEmpty() & checkApprove.isEmpty()) {
 				rentService.saveRent(account_id, book_id);
 				bookService.updateQuantity(quantity, book_id);
 				redirAttrs.addFlashAttribute("msg_success", "Successfully Added to Cart!");
-			} else {
+			}else {
 				redirAttrs.addFlashAttribute("msg_danger", "You have already borrowed this book!");
 				System.out.println("You have already borrowed this book!");
 			}
-		} else {
+		}else {
 			redirAttrs.addFlashAttribute("msg_danger", "You have already borrowed too much book!");
 			System.out.println("You have already borrowed too much book!");
 		}
 		return "redirect:/";
-
-		// test coommit
-		// commit 2
-
 	}
 	
 	@RequestMapping("deleteRent/{rentID}")
@@ -180,4 +186,22 @@ public class MainController {
 	public String login() {
 		return "login";
 	}
+	
+	@RequestMapping("checkout")
+	public String checkout(Model model) {
+		List<Approve> displayApprove = approveService.listAllApprove();
+		model.addAttribute("Approves", displayApprove);
+		return "checkout";
+	}
+	
+	@RequestMapping("addCheckout/{rentID}")
+	public String addCheckout(@PathVariable int rentID) {
+		int accountID = rentService.getRentByID(rentID).getAccount().getAccount_id();
+		int bookID = rentService.getRentByID(rentID).getBook().getBook_id();
+		String rentDate = rentService.getRentByID(rentID).getRent_date();
+		String returnDate = rentService.getRentByID(rentID).getReturn_date();
+		approveService.addApprove(rentID, accountID, bookID, rentDate, returnDate);
+		return "redirect:../";
+	}
+
 }
