@@ -17,4 +17,10 @@ public class CategoryServiceImpl implements CategoryService{
     public List<Category> listAllCategory() {
         return categoryRepository.findAll();
     }
+
+	@Override
+	public Category saveCat(Category category) {
+		// TODO Auto-generated method stub
+		return categoryRepository.save(category);
+	}
 }
