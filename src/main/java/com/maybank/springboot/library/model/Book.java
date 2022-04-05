@@ -3,15 +3,11 @@ package com.maybank.springboot.library.model;
 import javax.persistence.*;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
 @Entity
 @Table(name = "book")
 public class Book {
-	@Getter
-	@Setter
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(nullable = false)
@@ -28,6 +24,7 @@ public class Book {
 	private String book_publisher;
 	
 	private int quantity;
+	
 	private String book_image;
 	
 }

@@ -1,6 +1,5 @@
 package com.maybank.springboot.library.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -11,8 +10,6 @@ import java.util.List;
 
 import com.maybank.springboot.library.model.Category;
 import com.maybank.springboot.library.service.CategoryService;
-import lombok.SneakyThrows;
-import org.apache.tomcat.util.http.fileupload.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +29,6 @@ import com.maybank.springboot.library.service.RentService;
 
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
 
 @Controller
@@ -51,18 +47,18 @@ public class MainController {
 	@RequestMapping("/")
 	public String home(Model model) {
 		List<Book> displayBooks = bookService.listAllBook();
-//		System.out.println(displayBooks);
+		System.out.println(displayBooks);
 		model.addAttribute("Books", displayBooks);
 		return "home";
 
 	}
 	
-	@RequestMapping("/addBook")
+	@RequestMapping("addBook")
 	public String addBook() {
 		return "addBook";
 	}
 	
-	@RequestMapping("/rent")
+	@RequestMapping("rent")
 	public String rent(Model model) {
 		List<Rent> displayRent = rentService.listAllRent();
 //		System.out.println(displayRent);
@@ -71,7 +67,8 @@ public class MainController {
 	}
 	
 	@RequestMapping("addToCart")
-	public String addToCart(@RequestParam("bookID") int book_id) {
+	public String addToCart(@RequestParam("bookID") int book_id,
+			RedirectAttributes redirAttrs) {
 		Book book = bookService.listBookByID(book_id);
 		int quantity = book.getQuantity() - 1;
 		int account_id = 1;
@@ -83,10 +80,13 @@ public class MainController {
 			if(checkRent.isEmpty()) {
 				rentService.saveRent(account_id, book_id);
 				bookService.updateQuantity(quantity, book_id);
+				redirAttrs.addFlashAttribute("msg_success", "Successfully Added to Cart!");
 			}else {
+				redirAttrs.addFlashAttribute("msg_danger", "You have already borrowed this book!");
 				System.out.println("You have already borrowed this book!");
 			}
 		}else {
+			redirAttrs.addFlashAttribute("msg_danger", "You have already borrowed too much book!");
 			System.out.println("You have already borrowed too much book!");
 		}
 		return "redirect:/";
@@ -118,7 +118,7 @@ public class MainController {
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 		book.setBook_image(fileName);
 		Book saveBook1 =  bookService.saveBook(book);
-		String uploadDir = "C:\\Users\\USER\\Documents\\SpringKelompok\\SpringBoot-TugasKelompok\\src\\main\\resources\\static\\images\\" + saveBook1.getBook_id();
+		String uploadDir = "/Users/nicholasphandinata/Documents/GitHub/SpringBoot-TugasKelompok/src/main/resources/static/images/" + saveBook1.getBook_id();
 
 		Path uploadPath = Paths.get(uploadDir);
 		if (!Files.exists(uploadPath)){

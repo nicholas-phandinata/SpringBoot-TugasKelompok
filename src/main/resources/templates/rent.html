@@ -58,6 +58,7 @@
 					<th>Book Publisher</th>
 					<th>Rent Date</th>
 					<th>Return Date</th>
+					<th>Cancel</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -67,6 +68,8 @@
 					<td th:text="${item.Book.book_publisher}"></td>
 					<td th:text="${item.rent_date}"></td>
 					<td th:text="${item.return_date}"></td>
+					<td><a th:href="@{'/deleteRent/' + ${item.Book.book_id}}"
+						class="btn btn-danger btn-sm">Cancel</a></td>
 				</tr>
 			</tbody>
 		</table>

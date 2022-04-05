@@ -2,7 +2,6 @@ package com.maybank.springboot.library.service;
 
 import java.util.List;
 
-import com.maybank.springboot.library.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -47,6 +47,16 @@
 		</nav>
 	</div>
 
+	<div th:if="${msg_success}" id="flash_id01"
+		class="alert alert-success alert-dismissible" role="alert">
+		<p th:text="${msg_success}"></p>
+	</div>
+
+	<div th:if="${msg_danger}" id="flash_id01"
+		class="alert alert-danger alert-dismissible" role="alert">
+		<p th:text="${msg_danger}"></p>
+	</div>
+
 	<div class="container mt-4">
 		<div class="row">
 			<div class="col-md-3 mt-3 mb-2" th:each="book : ${Books}">
@@ -60,12 +70,22 @@
 					</div>
 					<div class="card-footer">
 						<a href="#" class="float-left btn btn-sm btn-primary">details</a>
-						<a th:href="@{'/addToCart?bookID=' + ${book.book_id}}" class="float-right btn btn-sm btn-warning">Add to
-							cart</a>
+						<a th:href="@{'/addToCart?bookID=' + ${book.book_id}}"
+							class="float-right btn btn-sm btn-warning">Add to cart</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<script>
+      // Get the modal
+      var modal = document.getElementById('flash_id01');
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+    </script>
 </body>
 </html>
