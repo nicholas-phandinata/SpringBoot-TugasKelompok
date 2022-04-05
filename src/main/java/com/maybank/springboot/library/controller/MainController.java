@@ -47,7 +47,7 @@ public class MainController {
 	@RequestMapping("/")
 	public String home(Model model) {
 		List<Book> displayBooks = bookService.listAllBook();
-		System.out.println(displayBooks);
+//		System.out.println(displayBooks);
 		model.addAttribute("Books", displayBooks);
 		return "home";
 
@@ -69,7 +69,7 @@ public class MainController {
 	@RequestMapping("addToCart")
 	public String addToCart(@RequestParam("bookID") int book_id,
 			RedirectAttributes redirAttrs) {
-		Book book = bookService.listBookByID(book_id);
+		Book book = bookService.getBookByID(book_id);
 		int quantity = book.getQuantity() - 1;
 		int account_id = 1;
 		List<Rent> checkRent = rentService.checkRent(account_id, book_id);
@@ -97,7 +97,7 @@ public class MainController {
 	}
 
 	// Controller Admin ADD BOOK
-	@RequestMapping("/admin/add-book")
+	@RequestMapping("admin/add-book")
 		public String addBook(Model model){
 		List<Category> displayCategory = categoryService.listAllCategory();
 		System.out.println("Category" + displayCategory);
@@ -110,7 +110,7 @@ public class MainController {
 
 
 	 //Controller ADD Method Save Book
-	@RequestMapping("/save")
+	@RequestMapping("save")
 	public String save(@ModelAttribute("book") Book book,
 					   @RequestParam("fileImage")MultipartFile multipartFile,
 					   RedirectAttributes ra) throws IOException {
@@ -140,6 +140,12 @@ public class MainController {
 		return "redirect:/";
 	}
 
-
+	@RequestMapping("deleteRent/{rentID}")
+	public String deleteRent(@PathVariable int rentID) {
+		int getBookIDFromRent = rentService.getRentByID(rentID).getBook().getBook_id();
+		int BookQuantity = bookService.getBookByID(getBookIDFromRent).getQuantity() + 1;
+		rentService.deleteRent(rentID, getBookIDFromRent, BookQuantity);
+		return "redirect:../";
+	}
 
 }

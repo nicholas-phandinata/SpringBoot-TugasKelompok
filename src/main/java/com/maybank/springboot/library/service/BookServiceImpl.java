@@ -22,7 +22,7 @@ public class BookServiceImpl implements BookService{
 	}
 
 	@Override
-	public Book listBookByID(int bookID) {
+	public Book getBookByID(int bookID) {
 		// TODO Auto-generated method stub
 		return bookRepo.findById(bookID).orElse(null);
 	}

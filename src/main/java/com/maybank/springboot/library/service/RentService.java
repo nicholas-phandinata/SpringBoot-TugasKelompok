@@ -12,4 +12,8 @@ public interface RentService {
 	List<Rent> checkRent(int accountID, int bookID);
 	
 	int checkNumberRent(int accountID);
+	
+	Rent getRentByID(int rentID);
+	
+	String deleteRent(int rentID, int bookID, int quantity);
 }
