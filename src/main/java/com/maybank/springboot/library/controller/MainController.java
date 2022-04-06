@@ -53,11 +53,13 @@ public class MainController {
 	@Autowired
 	UserService userService;
 
+
 	// User
+
 
 	@RequestMapping("/")
 	public String home(Model model) {
-		List<Book> displayBooks = bookService.listAllBook();
+		List<Book> displayBooks = bookService.listAvailableBook();
 //		System.out.println(displayBooks);
 		model.addAttribute("Books", displayBooks);
 		return "home";
@@ -66,7 +68,10 @@ public class MainController {
 
 	@RequestMapping("rent")
 	public String rent(Model model) {
-		List<Rent> displayRent = rentService.listAllRent();
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		Long currentID =  userService.getCurrentID(currentUserName);
+
+		List<Rent> displayRent = rentService.listRentByUserID(currentID);
 //		System.out.println(displayRent);
 		model.addAttribute("Rents", displayRent);
 		return "rent";
@@ -109,7 +114,7 @@ public class MainController {
 		int getBookIDFromRent = rentService.getRentByID(rentID).getBook().getBook_id();
 		int BookQuantity = bookService.getBookByID(getBookIDFromRent).getQuantity() + 1;
 		rentService.deleteRent(rentID, getBookIDFromRent, BookQuantity);
-		return "redirect:../";
+		return "redirect:../rent";
 	}
 	
 	@RequestMapping("checkout")
@@ -148,6 +153,7 @@ public class MainController {
 		return "redirect:/rent";
 	}
 	
+
 	@RequestMapping("checkout-all")
 	public String checkoutAll() {
 		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -184,7 +190,8 @@ public class MainController {
         exporter.export(response);
          
     }
-
+	
+	
  // -------------------------------Admin------------------------------------
  // Controller admin list book
  		@RequestMapping("/admin/bookList")
@@ -306,4 +313,6 @@ public class MainController {
 	public String login() {
 		return "login";
 	}
+
+
 }

@@ -7,9 +7,13 @@ import com.maybank.springboot.library.model.Category;
 
 public interface BookService {
 	List<Book> listAllBook();
+
 	List<Book> listAvailableBook();
+
 	Book getBookByID(int bookID);
+
 	String updateQuantity(int quantity, int bookID);
+
 	Book saveBook(Book book);
 
 }

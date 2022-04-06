@@ -8,25 +8,26 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CategoryServiceImpl implements CategoryService{
+public class CategoryServiceImpl implements CategoryService {
 
-    @Autowired
-    CategoryRepository categoryRepository;
+	@Autowired
+	CategoryRepository categoryRepository;
 
-    @Override
-    public List<Category> listAllCategory() {
-        return categoryRepository.findAll();
-    }
+	@Override
+	public List<Category> listAllCategory() {
+		return categoryRepository.findAll();
+	}
 
 	@Override
 	public Category saveCat(Category category) {
 		// TODO Auto-generated method stub
 		return categoryRepository.save(category);
 	}
-	
+
 	@Override
 	public Category getCategoryById(int editId) {
 		// TODO Auto-generated method stub
 		return categoryRepository.findById(editId).orElse(null);
+
 	}
 }

@@ -9,8 +9,10 @@ import com.maybank.springboot.library.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
+
  User findByEmail(String email);
  
  @Query("SELECT u.id FROM User u WHERE u.email = ?1")
  Long getCurrentID(String email);
+
 }

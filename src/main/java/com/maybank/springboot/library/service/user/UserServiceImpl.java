@@ -60,4 +60,10 @@ public class UserServiceImpl implements UserService {
 		return userRepository.getCurrentID(email);
 	}
 
+	@Override
+	public Long getCurrentID(String email) {
+		// TODO Auto-generated method stub
+		return userRepository.getCurrentID(email);
+	}
+
 }
