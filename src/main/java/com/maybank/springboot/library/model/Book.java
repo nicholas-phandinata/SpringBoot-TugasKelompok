@@ -29,4 +29,6 @@ public class Book {
 
 	private String description;
 	
+	private String info;
+	
 }

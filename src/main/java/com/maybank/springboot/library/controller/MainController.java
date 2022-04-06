@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.maybank.springboot.library.model.Category;
 import com.maybank.springboot.library.service.CategoryService;
+import com.maybank.springboot.library.service.HistoryService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -54,7 +56,8 @@ public class MainController {
 	@Autowired
 	UserService userService;
 
-
+	@Autowired
+	HistoryService historyService;
 
 	// User
 
@@ -126,6 +129,11 @@ public class MainController {
 		Long currentID =  userService.getCurrentID(currentUserName);
 		
 		List<Approve> displayApprove = approveService.listApproveByID(currentID);
+		for (int i = 0; i < displayApprove.size(); i++) {
+			  if(displayApprove.get(i).getStatus().contentEquals("approved")) {
+				  model.addAttribute("Print", "Yes");
+			  }
+			}
 		model.addAttribute("Approves", displayApprove);
 		return "checkout";
 	}
@@ -337,6 +345,7 @@ public class MainController {
 		System.out.println("id emp "+currentID);
 		List<Approve> displayApprove = approveService.listAllApprove();
 		model.addAttribute("Approves", displayApprove);
+		
 		return "/admin/approval";
 
 	}
@@ -347,6 +356,25 @@ public class MainController {
 
 		String currentName = userService.getfirstName(currentUserName);
 		approveService.updateStatus("approved", currentName, approveId);
+		return "redirect:/admin/approval";
+	}
+	
+	@RequestMapping("/admin/history/{approveId}")
+	public String history(@PathVariable int approveId, 
+			@RequestParam("information") String information) {
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		String employee = userService.getfirstName(currentUserName);
+		
+		Approve approve = approveService.getApproveById(approveId);
+
+		int rentID = approve.getRent_id();
+		Long ID = approve.getUser().getId();
+		int bookID = approve.getBook().getBook_id();
+		String rentDate = approve.getRent_date();
+		String returnDate = approve.getReturn_date();
+		int quantity = bookService.getBookByID(bookID).getQuantity() + 1;
+		
+		historyService.addHistory(information, approveId, rentID, ID, bookID, rentDate, returnDate, employee, quantity);
 		return "redirect:/admin/approval";
 	}
 	

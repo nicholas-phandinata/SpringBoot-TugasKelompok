@@ -18,6 +18,7 @@ public interface ApproveService {
 	int checkNumberApprove(Long ID);
 	
 	List<Approve> checkApprove(Long ID, int bookID);
+	
 	Approve getApproveById(int approveId);
 	
 	String updateStatus(String status, String firstName, int approvedID);
