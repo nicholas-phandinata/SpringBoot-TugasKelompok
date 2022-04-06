@@ -30,14 +30,20 @@
 				class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">
 				<i class="	fas fa-book-open me-2"></i>Perpusnas
 			</div>
+			<div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom"><i
+					class="	fas fa-book-open me-2"></i>Perpusnas</div>
 			<div class="list-group list-group-flush my-3">
 				<a th:href="@{/admin}"
 					class="list-group-item list-group-item-action bg-transparent second-text active"><i
 					class="fas fa-tachometer-alt me-2"></i>Dashboard</a> <a
 					th:href="@{/admin/category}"
+						class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+				<a th:href="@{/admin/category}"
 					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
 					class="fas fa-book me-2"></i>Book Category</a> <a
 					th:href="@{/admin/bookList}"
+						class="fas fa-book me-2"></i>Book Category</a>
+				<a th:href="@{/admin/bookList}"
 					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
 					class="fas fa-book me-2"></i>Book</a> <a th:href="@{/logout}"
 					sec:authorize="isAuthenticated()"
@@ -46,6 +52,7 @@
 				</a>
 				<!-- <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-chart-line me-2"></i>Analytics</a>
+						class="fas fa-book me-2"></i>Book</a>
 				<a th:href="@{/admin/approval}" class="list-group-item list-groui -item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-chart-line me-2"></i>Approval</a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
@@ -97,14 +104,17 @@
 						<div class="row g-3 my-2"></div>
 
 
+					<div class="container-fluid px-4"> 
 						<div class="row my-5">
 							<div class="col-md-8">
+							<!--<div class="col-md-8">
 								<form th:action="@{/admin/bookList}" method="get">
 									<input class="search" type="text" name="keyword"
 										placeholder="Cari..." required> <input class="button"
 										type="submit" value="Cari">
 								</form>
 							</div>
+							</div>-->
 							<div class="col-md-8">
 								<button type="button" class="button" data-toggle="modal"
 									data-target="#createBook">Create New Book</button>
