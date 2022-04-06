@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.maybank.springboot.library.model.Category;
 import com.maybank.springboot.library.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -195,13 +196,18 @@ public class MainController {
  // -------------------------------Admin------------------------------------
  // Controller admin list book
  		@RequestMapping("/admin/bookList")
- 		public String adminListBook(Model model) {
+ 		public String adminListBook(Model model, @Param("keyword") String keyword) {
  			List<Category> displayCategory = categoryService.listAllCategory();
  			List<Book> displayBooks = bookService.listAllBook();
- 			System.out.println("Category" + displayCategory);
+// 			System.out.println("Category" + displayCategory);
  			model.addAttribute("listCategory", displayCategory);
  			model.addAttribute("book", new Book());
  			model.addAttribute("Books", displayBooks);
+ 			if(keyword != null) {
+ 				List<Book> displayBooks1 = bookService.findBy(keyword);
+ 				model.addAttribute("Books", displayBooks1);
+ 			}
+ 			
  			return "/admin/book";
 
  		}
@@ -217,10 +223,16 @@ public class MainController {
 
 	// Controller Category Book
 	@RequestMapping("/admin/category")
-	public String categoryAdmin(Model model) {
+	public String categoryAdmin(Model model, @Param(value = "keyword") String keyword ){
 		List<Category> dispCategories = categoryService.listAllCategory();
-//			System.out.println(displayBooks);
 		model.addAttribute("cate", dispCategories);
+		if(keyword !=null) {
+			List<Category> dispCategories1 = categoryService.findBy(keyword);
+			model.addAttribute("cate", dispCategories1);
+		}
+		
+//			System.out.println(displayBooks);
+		
 		model.addAttribute("category", new Category());
 		return "/admin/bookCategory";
 
@@ -234,6 +246,8 @@ public class MainController {
 		System.out.println("Category" + displayCategory);
 		model.addAttribute("listCategory", displayCategory);
 		model.addAttribute("book", new Book());
+		
+		
 		return "addBook";
 	}
 

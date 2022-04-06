@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface CategoryService {
     List<Category> listAllCategory();
+    List<Category> findBy(String keyword);
     Category saveCat(Category category);
     Category getCategoryById(int editId);
-
+    
 }

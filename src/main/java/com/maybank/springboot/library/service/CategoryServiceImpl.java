@@ -30,4 +30,10 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryRepository.findById(editId).orElse(null);
 
 	}
+
+	@Override
+	public List<Category> findBy(String keyword) {
+		
+		return categoryRepository.search(keyword);
+	}
 }

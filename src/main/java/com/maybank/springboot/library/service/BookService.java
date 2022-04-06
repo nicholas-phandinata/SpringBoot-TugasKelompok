@@ -15,5 +15,6 @@ public interface BookService {
 	String updateQuantity(int quantity, int bookID);
 
 	Book saveBook(Book book);
-
+	
+	List<Book> findBy(String keyword);
 }

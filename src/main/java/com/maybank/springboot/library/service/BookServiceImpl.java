@@ -46,4 +46,10 @@ public class BookServiceImpl implements BookService{
 		return bookRepo.listAvailableBook();
 	}
 
+	@Override
+	public List<Book> findBy(String keyword) {
+		// TODO Auto-generated method stub
+		return bookRepo.findBy(keyword);
+	}
+
 }
