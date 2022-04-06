@@ -55,6 +55,7 @@ public class MainController {
 	UserService userService;
 
 
+
 	// User
 
 
@@ -86,7 +87,8 @@ public class MainController {
 		
 		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 		Long currentID =  userService.getCurrentID(currentUserName);
-		
+		System.out.println("id "+ currentID);
+		System.out.println("userName "+currentUserName);
 		List<Rent> checkRent = rentService.checkRent(currentID, book_id);
 		List<Approve> checkApprove = approveService.checkApprove(currentID, book_id);
 		
@@ -244,7 +246,6 @@ public class MainController {
 
 	}
 	
-
 	// Controller Admin ADD BOOK
 	@RequestMapping("admin/add-book")
 	public String addBook(Model model) {
@@ -325,6 +326,28 @@ public class MainController {
 		System.out.println("Form Data: " + book);
 		bookService.saveBook(book);
 		return "redirect:/admin/bookList";
+	}
+
+	//Aprroval
+	
+	@RequestMapping("/admin/approval")
+	public String approvalAdmin(Model model) {
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		Long currentID =  userService.getCurrentID(currentUserName);
+		System.out.println("id emp "+currentID);
+		List<Approve> displayApprove = approveService.listAllApprove();
+		model.addAttribute("Approves", displayApprove);
+		return "/admin/approval";
+
+	}
+	
+	@RequestMapping("/admin/approval/{approveId}")
+	public String approval(@PathVariable int approveId) {
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		Long currentID =  userService.getCurrentID(currentUserName);
+		String currentName = userService.getfirstName(currentUserName);
+		approveService.updateStatus("approved", currentName, approveId);
+		return "redirect:/admin/approval";
 	}
 	
 

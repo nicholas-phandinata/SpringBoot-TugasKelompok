@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.maybank.springboot.library.model.Approve;
+import com.maybank.springboot.library.model.Category;
 
 public interface ApproveRepository extends JpaRepository<Approve, Integer>{
 	@Modifying
@@ -32,5 +33,10 @@ public interface ApproveRepository extends JpaRepository<Approve, Integer>{
 	
 	@Query("SELECT a FROM Approve a WHERE a.user.id = ?1")
 	List<Approve> listApproveByUserID(Long ID);
+	
+	@Modifying
+	@Query(value = "Update approve SET status = :status, employee =:employee WHERE  approve_id = :approvedID", nativeQuery = true)
+	@Transactional
+	void updateStatus(@Param("status") String status, @Param("employee") String firstName ,@Param("approvedID") int approvedID);
 
 }

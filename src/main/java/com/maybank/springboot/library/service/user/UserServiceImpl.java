@@ -53,8 +53,8 @@ public class UserServiceImpl implements UserService {
     private Collection < ? extends GrantedAuthority > mapRolesToAuthorities(Collection < Role > roles) {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
-    
-    @Override
+
+	@Override
 	public Long getCurrentID(String email) {
 		// TODO Auto-generated method stub
 		return userRepository.getCurrentID(email);
@@ -67,4 +67,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 
+	public String getfirstName(String email) {
+		// TODO Auto-generated method stub
+		return userRepository.getfirstName(email);
+	}
+    
+    
 }

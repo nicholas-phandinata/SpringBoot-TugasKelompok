@@ -49,4 +49,18 @@ public class ApproveServiceImpl implements ApproveService{
 		// TODO Auto-generated method stub
 		return approveRepo.listApproveByUserID(ID);
 	}
+
+	@Override
+	public Approve getApproveById(int approveId) {
+		// TODO Auto-generated method stub
+		return approveRepo.findById(approveId).orElse(null);
+	}
+
+	@Override
+	public String updateStatus(String status,String firstName, int approvedID) {
+		// TODO Auto-generated method stub
+		approveRepo.updateStatus(status, firstName, approvedID);
+		return "Update Successfull";
+	}
+
 }

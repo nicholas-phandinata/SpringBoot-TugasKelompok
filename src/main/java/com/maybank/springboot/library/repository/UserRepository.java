@@ -14,6 +14,9 @@ public interface UserRepository extends JpaRepository<User, Long>{
  
  @Query("SELECT u.id FROM User u WHERE u.email = ?1")
  Long getCurrentID(String email);
+ 
+ @Query("SELECT u.firstName FROM User u WHERE u.email= ?1")
+ String getfirstName(String email);
 
  @Query(value = "SELECT COUNT(*) FROM `users_roles`\r\n"
  		+ "	JOIN user ON users_roles.user_id = user.id\r\n"
@@ -21,3 +24,4 @@ public interface UserRepository extends JpaRepository<User, Long>{
  		+ "    WHERE role.name != 'ROLE_ADMIN';", nativeQuery = true)
  Long jmlUser();
 }
+

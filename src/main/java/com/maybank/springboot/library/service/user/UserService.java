@@ -11,4 +11,6 @@ public interface UserService extends UserDetailsService{
 	Long getCurrentID(String email);
 	
 	Long jmlUser();
+	String getfirstName(String email);
+
 }
