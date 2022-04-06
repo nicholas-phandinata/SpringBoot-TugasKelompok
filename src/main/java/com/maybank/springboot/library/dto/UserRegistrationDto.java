@@ -1,7 +1,5 @@
 package com.maybank.springboot.library.dto;
 
-import javax.management.loading.PrivateClassLoader;
-
 import lombok.Data;
 @Data
 public class UserRegistrationDto {

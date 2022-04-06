@@ -344,7 +344,7 @@ public class MainController {
 	@RequestMapping("/admin/approval/{approveId}")
 	public String approval(@PathVariable int approveId) {
 		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-		Long currentID =  userService.getCurrentID(currentUserName);
+
 		String currentName = userService.getfirstName(currentUserName);
 		approveService.updateStatus("approved", currentName, approveId);
 		return "redirect:/admin/approval";

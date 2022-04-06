@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.maybank.springboot.library.model.Approve;
-import com.maybank.springboot.library.model.Category;
 
 public interface ApproveRepository extends JpaRepository<Approve, Integer>{
 	@Modifying
