@@ -9,5 +9,5 @@ public interface CategoryService {
     List<Category> findBy(String keyword);
     Category saveCat(Category category);
     Category getCategoryById(int editId);
-    
+    Long jmlCat();
 }

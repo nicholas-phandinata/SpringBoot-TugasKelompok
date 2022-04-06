@@ -9,4 +9,6 @@ public interface UserService extends UserDetailsService{
 	User save(UserRegistrationDto registrationDto);
  	
 	Long getCurrentID(String email);
+	
+	Long jmlUser();
 }

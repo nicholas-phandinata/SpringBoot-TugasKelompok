@@ -36,4 +36,10 @@ public class CategoryServiceImpl implements CategoryService {
 		
 		return categoryRepository.search(keyword);
 	}
+
+	@Override
+	public Long jmlCat() {
+		
+		return categoryRepository.jmlCat();
+	}
 }

@@ -15,4 +15,9 @@ public interface UserRepository extends JpaRepository<User, Long>{
  @Query("SELECT u.id FROM User u WHERE u.email = ?1")
  Long getCurrentID(String email);
 
+ @Query(value = "SELECT COUNT(*) FROM `users_roles`\r\n"
+ 		+ "	JOIN user ON users_roles.user_id = user.id\r\n"
+ 		+ "    JOIN role ON users_roles.role_id = role.id\r\n"
+ 		+ "    WHERE role.name != 'ROLE_ADMIN';", nativeQuery = true)
+ Long jmlUser();
 }

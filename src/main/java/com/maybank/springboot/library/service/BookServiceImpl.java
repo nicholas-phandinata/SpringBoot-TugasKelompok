@@ -52,4 +52,10 @@ public class BookServiceImpl implements BookService{
 		return bookRepo.findBy(keyword);
 	}
 
+	@Override
+	public Long jmlBook() {
+		// TODO Auto-generated method stub
+		return bookRepo.count();
+	}
+
 }

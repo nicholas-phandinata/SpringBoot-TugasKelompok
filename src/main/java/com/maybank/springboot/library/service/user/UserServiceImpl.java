@@ -61,9 +61,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Long getCurrentID(String email) {
+	public Long jmlUser() {
 		// TODO Auto-generated method stub
-		return userRepository.getCurrentID(email);
+		return userRepository.jmlUser();
 	}
+
 
 }

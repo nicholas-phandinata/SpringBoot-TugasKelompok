@@ -61,7 +61,7 @@ public class MainController {
 	@RequestMapping("/")
 	public String home(Model model) {
 		List<Book> displayBooks = bookService.listAvailableBook();
-//		System.out.println(displayBooks);
+		
 		model.addAttribute("Books", displayBooks);
 		return "home";
 
@@ -215,7 +215,13 @@ public class MainController {
 	@RequestMapping("/admin")
 	public String indexAdmin(Model model) {
 		List<Book> displayBooks = bookService.listAllBook();
-//			System.out.println(displayBooks);
+		Long jmlBooks = bookService.jmlBook();
+		Long jmlCat= categoryService.jmlCat();
+		Long jmlUser= userService.jmlUser();
+		
+		model.addAttribute("jml_book", jmlBooks);
+		model.addAttribute("jml_cat", jmlCat);
+		model.addAttribute("jml_user", jmlUser);
 		model.addAttribute("category", new Category());
 		model.addAttribute("Books", displayBooks);
 		return "/admin/index";
