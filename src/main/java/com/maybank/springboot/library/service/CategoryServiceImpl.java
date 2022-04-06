@@ -23,4 +23,10 @@ public class CategoryServiceImpl implements CategoryService{
 		// TODO Auto-generated method stub
 		return categoryRepository.save(category);
 	}
+	
+	@Override
+	public Category getCategoryById(int editId) {
+		// TODO Auto-generated method stub
+		return categoryRepository.findById(editId).orElse(null);
+	}
 }

@@ -7,4 +7,5 @@ import com.maybank.springboot.library.model.User;
 
 public interface UserService extends UserDetailsService{
  User save(UserRegistrationDto registrationDto);
+ Long getCurrentID(String email);
 }

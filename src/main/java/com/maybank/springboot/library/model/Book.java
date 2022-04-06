@@ -81,8 +81,6 @@ public class Book {
 
 	public void setBook_image(String book_image) {
 		this.book_image = book_image;
-	}
-	
-	
+	}	
 	
 }

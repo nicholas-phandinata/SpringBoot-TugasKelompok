@@ -40,4 +40,10 @@ public class BookServiceImpl implements BookService{
 
 	}
 
+	@Override
+	public List<Book> listAvailableBook() {
+		// TODO Auto-generated method stub
+		return bookRepo.listAvailableBook();
+	}
+
 }

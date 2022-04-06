@@ -7,13 +7,15 @@ import com.maybank.springboot.library.model.Rent;
 public interface RentService {
 	List<Rent> listAllRent();
 	
-	String saveRent(int accountID, int bookID);
+	String saveRent(Long ID, int bookID);
 	
-	List<Rent> checkRent(int accountID, int bookID);
+	List<Rent> checkRent(Long ID, int bookID);
 	
-	int checkNumberRent(int accountID);
+	List<Rent> listRentByUserID(Long ID);
 	
-	Rent getRentByID(int rentID);
+	int checkNumberRent(Long ID);
 	
-	String deleteRent(int rentID, int bookID, int quantity);
+	Rent getRentByID(int RentID);
+	
+	String deleteRent(int RentID, int bookID, int quantity);
 }

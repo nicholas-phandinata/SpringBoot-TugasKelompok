@@ -1,81 +1,64 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Registration and Login App</title>
 
-<link rel="stylesheet"
- href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
- integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
- crossorigin="anonymous">
- 
+<head>
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" th:href="@{/css/stylelogin.css}">
+
 </head>
+
+
 <body>
 
- <!-- create navigation bar ( header) -->
- <nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container">
-   <div class="navbar-header">
-    <button type="button" class="navbar-toggle collapsed"
-     data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-     aria-controls="navbar">
-     <span class="sr-only">Toggle navigation</span> <span
-      class="icon-bar"></span> <span class="icon-bar"></span> <span
-      class="icon-bar"></span>
-    </button>
-    <a class="navbar-brand" href="#" th:href="@{/}">Registration and
-     Login Module</a>
-   </div>
-  </div>
- </nav>
- 
- <br>
- <br>
- <div class = "container">
-  <div class = "row">
-   <div class = "col-md-6 col-md-offset-3">
-    
-    <h1> User Login Page </h1>
-    <form th:action="@{/login}" method="post">
-     
-     <!-- error message -->
-     <div th:if="${param.error}">
-      <div class="alert alert-danger">Invalid username or
-       password.</div>
-     </div>
-    
-     <!-- logout message -->
-     <div th:if="${param.logout}">
-      <div class="alert alert-info">You have been logged out.</div>
-     </div>
-     
-     <div class = "form-group">
-      <label for ="username"> Email </label> :
-      <input type="text" class = "form-control" id ="username" name = "username"
-      placeholder="Enter Email ID" autofocus="autofocus">
-     </div>
-     
-     <div class="form-group">
-      <label for="password">Password</label>: <input type="password"
-       id="password" name="password" class="form-control"
-       placeholder="Enter Password" />
-     </div>
-     
-     <div class="form-group">
-      <div class="row">
-       <div class="col-sm-6 col-sm-offset-3">
-        <input type="submit" name="login-submit" id="login-submit"
-         class="form-control btn btn-primary" value="Log In" />
-       </div>
-      </div>
-     </div>
-    </form>
-    <div class="form-group">
-      <span>New user? <a href="/" th:href="@{/registration}">Register
-        here</a></span>
-    </div>
-   </div>
-  </div>
- </div>
+	<section class="form my-4 mx-5">
+		<div class="container">
+			<div class="row no-gutters">
+				<div class="col-lg-5">
+				<img class="img-fluid" src="../static/img/1.jpg" width="1000" th:src="@{img/1.jpg}"/>
+				</div>
+				<div class="col-lg-7 px-5 pt-5">
+					<h1 class="font-weight-bold py-3"> Perpusnas</h1>
+					<h4>Sign in into your account</h4>
+					<form th:action="@{/login}" method="post">
+						<!-- error message -->
+						<div th:if="${param.error}">
+							<div class="alert alert-danger">Invalid username or
+								password.</div>
+						</div>
+
+						<!-- logout message -->
+						<div th:if="${param.logout}">
+							<div class="alert alert-info">You have been logged out.</div>
+						</div>
+						<div class="form-row">
+							<div class="col-lg-7">
+								<input type="text" class="form-control" id="username" name="username"
+									placeholder="Enter Email ID" autofocus="autofocus">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-lg-7">
+								<label for="password">Password</label>: <input type="password" id="password"
+									name="password" class="form-control" placeholder="Enter Password" />
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-lg-7">
+								<button type="submit" class="btn1 mt-3 mb-3">login </button>
+							</div>
+						</div>
+						<span>New user? <a href="/" th:href="@{/registration}">Register here</a></span>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
 </body>
+
 </html>

@@ -31,8 +31,8 @@
 				<a th:href="@{/admin/bookList}"
 					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
 						class="fas fa-book me-2"></i>Book</a>
-				<a href="#" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
-						class="fas fa-power-off me-2"></i>Logout</a>
+				<a  th:href="@{/logout}" sec:authorize="isAuthenticated()" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold">
+				<i class="fas fa-power-off me-2" ></i>Logout</a>
 				<!-- <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-chart-line me-2"></i>Analytics</a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
@@ -68,12 +68,12 @@
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
 								role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								<i class="fas fa-user me-2"></i>John Doe
+								<i class="fas fa-user me-2" sec:authentication="principal.username"></i>
 							</a>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" href="#">Profile</a></li>
-								<li><a class="dropdown-item" href="#">Settings</a></li>
-								<li><a class="dropdown-item" href="#">Logout</a></li>
+<!--								<li><a class="dropdown-item" href="#" >Profile</a></li>
+								<li><a class="dropdown-item" href="#">Settings</a></li>-->
+								<li><a class="dropdown-item"  th:href="@{/logout}" sec:authorize="isAuthenticated()">Logout</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -82,82 +82,6 @@
 
 			<div class="container-fluid px-4">
 				<div class="row g-3 my-2">
-					<div class="col-md-3">
-						<div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-							<div>
-								<h3 class="fs-2">720</h3>
-								<p class="fs-5">Pendidikan</p>
-							</div>
-							<i class="fas fa-gift fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-						</div>
-					</div>
-
-					<div class="col-md-3">
-						<div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-							<div>
-								<h3 class="fs-2">4920</h3>
-								<p class="fs-5">Horor</p>
-							</div>
-							<i
-								class="fas fa-hand-holding-usd fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-						</div>
-					</div>
-
-					<div class="col-md-3">
-						<div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-							<div>
-								<h3 class="fs-2">3899</h3>
-								<p class="fs-5">Fantasi</p>
-							</div>
-							<i class="fas fa-truck fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-						</div>
-					</div>
-
-					<div class="col-md-3">
-						<div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-							<div>
-								<h3 class="fs-2">25</h3>
-								<p class="fs-5">Mistery</p>
-							</div>
-							<i class="fas fa-chart-line fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-							<div>
-								<h3 class="fs-2">25</h3>
-								<p class="fs-5">Mistery</p>
-							</div>
-							<i class="fas fa-chart-line fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-							<div>
-								<h3 class="fs-2">25</h3>
-								<p class="fs-5">Mistery</p>
-							</div>
-							<i class="fas fa-chart-line fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-							<div>
-								<h3 class="fs-2">25</h3>
-								<p class="fs-5">Mistery</p>
-							</div>
-							<i class="fas fa-chart-line fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-							<div>
-								<h3 class="fs-2">25</h3>
-								<p class="fs-5">Mistery</p>
-							</div>
-							<i class="fas fa-chart-line fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-						</div>
-					</div>
 				</div>
 
 
@@ -167,6 +91,72 @@
 							<input class="search" type="text" placeholder="Cari..." required>
 							<input class="button" type="button" value="Cari">
 						</form>
+					</div>
+					<div class="col-md-8">
+						<button type="button" class="button" data-toggle="modal" data-target="#createBook">Create
+							New Book
+						</button>
+					</div>
+
+					<!-- Modal -->
+					<div class="modal fade" th:attr="id=createBook" tabindex="-1" role="dialog"
+						aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document" style="max-width: 30%;">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">Create Book</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<form action="#" th:action="@{/save}" th:object="${book}" method="post"
+										enctype="multipart/form-data">
+
+										<table border="0" cellpadding="10">
+											<tr>
+												<td>BOOK TITLE:</td>
+												<td><input type="text" th:field="*{book_title}" /></td>
+											</tr>
+											<tr>
+												<td>BOOK AUTHOR:</td>
+												<td><input type="text" th:field="*{book_author}" /></td>
+											</tr>
+											<tr>
+												<td>BOOK PUBLISHER:</td>
+												<td><input type="text" th:field="*{book_publisher}" /></td>
+											</tr>
+											<tr>
+												<td>QUANTITY:</td>
+												<td><input type="number" th:field="*{quantity}" min="1" max="5" /></td>
+											</tr>
+											<tr>
+												<td><label for="cars">Category:</label></td>
+												<td><select name="category" id="category">
+														<option value="0">Category</option>
+														<option th:each="cat : ${listCategory}"
+															th:value="${cat.category_id}"
+															th:text="${cat.category_name}">
+														</option>
+													</select></td>
+											</tr>
+											<tr>
+												<td>Book Cover:</td>
+												<td><input type="file" name="fileImage" id="fileImage"
+														accept="image/png, image/jpeg" onchange="previewFile()" /></td>
+											</tr>
+											<tr>
+												<td>Book Cover Preview</td>
+												<td><img src="" height="100" alt="Image preview..."></td>
+											</tr>
+
+											<tr>
+												<td colspan="2"><button type="submit">Save</button> </td>
+										</table>
+									</form>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 
@@ -186,12 +176,14 @@
 									<th scope="row" th:text="${b.book_id}"></th>
 									<td th:text="${b.book_title}"></td>
 									<td>
-											<img th:src="@{'/images/'+${b.book_id}+'/'+${b.book_image}}" alt=""
-												class="card-img-top" >
+										<img  style="width: 300px; height: 150px;" width="10" th:src="@{'/images/'+${b.book_id}+'/'+${b.book_image}}" alt=""
+											class="card-img-top">
 									</td>
 									<!-- Start Modal Update-->
 									<td>
-										<aclass="btn btn-secondary btn-sm"> <span class="fa fa-pencil"></span>
+										<a class="btn btn-success btn-sm"
+											th:href="@{'/admin/edit-book/' + ${b.book_id}}" /> <span
+											class="fa fa-pencil"></span>
 									</td>
 								</tr>
 						</tbody>
@@ -214,6 +206,23 @@
 		toggleButton.onclick = function () {
 			el.classList.toggle("toggled");
 		};
+	</script>
+	<script type="text/javascript">
+		function previewFile() {
+			var preview = document.querySelector('img');
+			var file = document.querySelector('input[type=file]').files[0];
+			var reader = new FileReader();
+
+			reader.onloadend = function () {
+				preview.src = reader.result;
+			}
+
+			if (file) {
+				reader.readAsDataURL(file);
+			} else {
+				preview.src = "";
+			}
+		}
 	</script>
 </body>
 

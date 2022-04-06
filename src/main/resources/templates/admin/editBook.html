@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Edit Book</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+	<div align="center">
+		<h1>Edit Book</h1>
+		<br />
+		<form action="#" th:action="@{/admin/edit-book}" th:object="${book}" method="post" enctype="multipart/form-data">
+
+			<table border="0" cellpadding="10">
+				<tr>
+					<td>BOOK TITLE:</td>
+					<td><input type="text" th:field="*{book_id}" readonly disabled/></td>
+				</tr>
+				<tr>
+					<td>BOOK TITLE:</td>
+					<td><input type="text" th:field="*{book_title}" /></td>
+				</tr>
+				<tr>
+					<td>BOOK AUTHOR:</td>
+					<td><input type="text" th:field="*{book_author}" /></td>
+				</tr>
+				<tr>
+					<td>BOOK PUBLISHER:</td>
+					<td><input type="text" th:field="*{book_publisher}" /></td>
+				</tr>
+				<tr>
+					<td>QUANTITY:</td>
+					<td><input type="number" th:field="*{quantity}" min="1" max="5" /></td>
+				</tr>
+				<tr>
+					<td><label for="cars">Category:</label></td>
+					<td><select name="category" id="category">
+							<option value="0">Category</option>
+							<option th:each="cat : ${listCategory}" th:value="${cat.category_id}"
+								th:text="${cat.category_name}">
+							</option>
+						</select></td>
+				</tr>
+				<tr>
+					<td>Book Cover:</td>
+					<td>
+					<input type="file" value="Change Images" name="fileImage" id="fileImage" accept="image/png, image/jpeg"
+							onchange="previewFile()" /></td>
+				</tr>
+				<tr>
+					<td>Book Cover Preview</td>
+					<td><img th:src="@{'/images/'+${book.book_id}+'/'+${book.book_image}}" alt="" height="200"></td>
+				</tr>
+
+				<tr>
+					<td colspan="2"><button type="submit">Save</button> </td>
+			</table>
+		</form>
+	</div>
+	<script type="text/javascript">
+		function previewFile() {
+			var preview = document.querySelector('img');
+			var file = document.querySelector('input[type=file]').files[0];
+			var reader = new FileReader();
+
+			reader.onloadend = function () {
+				preview.src = reader.result;
+			}
+
+			if (file) {
+				reader.readAsDataURL(file);
+			} else {
+				preview.src = "";
+			}
+		}
+	</script>
+</body>

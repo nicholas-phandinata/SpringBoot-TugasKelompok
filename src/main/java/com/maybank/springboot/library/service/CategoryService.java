@@ -8,4 +8,5 @@ import java.util.List;
 public interface CategoryService {
     List<Category> listAllCategory();
     Category saveCat(Category category);
+    Category getCategoryById(int editId);
 }
