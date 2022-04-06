@@ -10,7 +10,7 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
 <meta charset="utf-8" />
-<title>My Rent Cart</title>
+<title>My History</title>
 </head>
 <body>
 	<div class="container-fluid custom-nav-container">
@@ -27,9 +27,9 @@
 					</a></li>
 					<li class="nav-item"><a class="nav-link" href="/rent">My
 							Rent Cart</a></li>
-					<li class="nav-item"><a class="nav-link" href="/checkout">My
+				    <li class="nav-item"><a class="nav-link" href="/checkout">My
 							Checkout</a></li>
-					<li class="nav-item"><a class="nav-link" href="/myHistory">My
+				    <li class="nav-item"><a class="nav-link" href="/myHistory">My
 							History</a></li>
 				</ul>
 			</div>
@@ -50,9 +50,9 @@
 			</div>
 		</nav>
 	</div>
-
+	
 	<div align="center">
-		<h1>My Rent Cart</h1>
+		<h1>My History</h1>
 		<br />
 		<table border="1" cellpadding="10">
 			<thead>
@@ -60,31 +60,24 @@
 					<th>Book Title</th>
 					<th>Book Author</th>
 					<th>Book Publisher</th>
+					<th>Category</th>
 					<th>Rent Date</th>
-					<th>Return Date</th>
-					<th>Cancel</th>
-					<th>Confirm</th>
+					<th>Completed Date</th>
+					<th>Information</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="item : ${Rents}">
+				<tr th:each="item : ${Histories}">
 					<td th:text="${item.Book.book_title}"></td>
 					<td th:text="${item.Book.book_author}"></td>
 					<td th:text="${item.Book.book_publisher}"></td>
+					<td th:text="${item.Book.Category.category_name}"></td>
 					<td th:text="${item.rent_date}"></td>
-					<td th:text="${item.return_date}"></td>
-					<td><a th:href="@{'/deleteRent/' + ${item.rent_id}}"
-						class="btn btn-danger btn-sm">Cancel</a></td>
-					<td><a th:href="@{'/addCheckout/' + ${item.rent_id}}"
-						class="btn btn-success btn-sm">Checkout</a></td>
+					<td th:text="${item.record_time}"></td>
+					<td th:text="${item.information}"></td>
 				</tr>
 			</tbody>
 		</table>
-		<br><br>
-		<a th:href="@{/cancel-all}"
-		 class="btn btn-danger btn-sm">Cancel All</a>
-		<a th:href="@{/checkout-all}"
-		 class="btn btn-success btn-sm">Checkout All</a>
 	</div>
 </body>
 </html>

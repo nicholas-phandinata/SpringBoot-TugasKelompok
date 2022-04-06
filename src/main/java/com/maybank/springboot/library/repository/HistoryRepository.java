@@ -1,5 +1,7 @@
 package com.maybank.springboot.library.repository;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,4 +26,7 @@ public interface HistoryRepository extends JpaRepository<History, Integer>{
 			@Param("rentDate") String rentDate, 
 			@Param("returnDate") String returnDate,
 			@Param("employee") String employee);
+	
+	@Query("SELECT h FROM History h WHERE h.user.id = ?1")
+	List<History> listHistoryByUserID(Long ID);
 }

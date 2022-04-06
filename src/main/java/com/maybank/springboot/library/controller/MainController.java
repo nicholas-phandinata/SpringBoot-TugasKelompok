@@ -14,6 +14,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.maybank.springboot.library.model.Category;
+import com.maybank.springboot.library.model.History;
 import com.maybank.springboot.library.service.CategoryService;
 import com.maybank.springboot.library.service.HistoryService;
 
@@ -180,6 +181,16 @@ public class MainController {
             approveService.addApprove(rentID, currentID, bookID, rentDate, returnDate);
         });
 		return "redirect:/checkout";
+	}
+	
+	@RequestMapping("myHistory")
+	public String myHistory(Model model) {
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		Long currentID =  userService.getCurrentID(currentUserName);
+
+		List<History> displayHistory = historyService.listHistoryByID(currentID);
+		model.addAttribute("Histories", displayHistory);
+		return "history";
 	}
 	
     @GetMapping("export")

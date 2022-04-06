@@ -1,8 +1,11 @@
 package com.maybank.springboot.library.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.maybank.springboot.library.model.History;
 import com.maybank.springboot.library.repository.ApproveRepository;
 import com.maybank.springboot.library.repository.BookRepository;
 import com.maybank.springboot.library.repository.HistoryRepository;
@@ -27,6 +30,12 @@ public class HistoryImpl implements HistoryService{
 		approveRepo.deleteById(approveID);
 		bookRepo.updateQuantity(quantity, bookID);
 		return "History successfully added!";
+	}
+
+	@Override
+	public List<History> listHistoryByID(Long ID) {
+		// TODO Auto-generated method stub
+		return historyRepo.listHistoryByUserID(ID);
 	}
 
 }
