@@ -50,5 +50,11 @@ public class HistoryImpl implements HistoryService{
 		// TODO Auto-generated method stub
 		return historyRepo.findAll();
 	}
+
+	@Override
+	public List<History> searchByDate(String rent_date, String return_date) {
+		
+		return historyRepo.searchByDate(rent_date, return_date);
+	}
 		
 }

@@ -498,13 +498,18 @@ public class MainController {
 	
 	// Report
 	@RequestMapping("/admin/report")
-	public String report(Model model) {
+	public String report(Model model, @Param(value = "rent_date")String rent_date, 
+			@Param("return_date") String return_date) {
 		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-		Long currentID =  userService.getCurrentID(currentUserName);
-		System.out.println("id emp "+currentID);
+//		Long currentID =  userService.getCurrentID(currentUserName);
+////		System.out.println("id emp "+currentID);
 		List<History> disHistories = historyService.listAll();
-		System.out.println(disHistories);
 		model.addAttribute("histrory", disHistories);
+		if(rent_date != null && return_date != null) {
+			List<History> disHistories2 = historyService.searchByDate(rent_date, return_date);
+			model.addAttribute("histrory", disHistories2);
+		}
+		
 		return ("/admin/report");
 
 	}

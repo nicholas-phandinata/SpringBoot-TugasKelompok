@@ -19,4 +19,6 @@ public interface HistoryService {
 	List<History> listHistoryByKeyword(Long ID, String keyword);
 	
 	List<History> listAll();
+	
+	List<History> searchByDate(String rent_date, String return_date);
 }
