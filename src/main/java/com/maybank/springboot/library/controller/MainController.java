@@ -94,7 +94,63 @@ public class MainController {
 		//test coommit
 		//commit 2
 
+<<<<<<< Updated upstream
 	}
+=======
+		if(!"".equals(keyword)) {
+			List<History> displayHistory = historyService.listHistoryByKeyword(currentID, keyword);
+			if(displayHistory.isEmpty()) {
+				model.addAttribute("NotFound", "Yes");
+			}else {
+				model.addAttribute("Histories", displayHistory);
+			}
+		}else {
+			List<History> displayHistory = historyService.listHistoryByID(currentID);
+			model.addAttribute("Histories", displayHistory);
+		}
+		return "history";
+	}
+	
+    @GetMapping("export")
+    public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+         
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=MyCheckout_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+        
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		Long currentID =  userService.getCurrentID(currentUserName);
+        
+		List<Approve> listApprove = approveService.listApproveByID(currentID);
+         
+        UserPDFExporter exporter = new UserPDFExporter(listApprove);
+        exporter.export(response);
+         
+    }
+	
+	
+ // -------------------------------Admin------------------------------------
+ // Controller admin list book
+ 		@RequestMapping("/admin/bookList")
+ 		public String adminListBook(Model model, @Param("keyword") String keyword) {
+ 			List<Category> displayCategory = categoryService.listAllCategory();
+ 			List<Book> displayBooks = bookService.listAllBook();
+// 			System.out.println("Category" + displayCategory);
+ 			model.addAttribute("listCategory", displayCategory);
+ 			model.addAttribute("book", new Book());
+ 			model.addAttribute("Books", displayBooks);
+// 			System.out.println(displayBooks);
+ 			if(keyword != null) {
+ 				List<Book> displayBooks1 = bookService.findBy(keyword);
+ 				model.addAttribute("Books", displayBooks1);
+ 				System.out.println(displayBooks1);
+ 			}
+ 			
+ 			return "/admin/book";
+>>>>>>> Stashed changes
 
 	// Controller Admin ADD BOOK
 	@RequestMapping("admin/add-book")
