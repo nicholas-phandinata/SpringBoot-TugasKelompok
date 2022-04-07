@@ -93,11 +93,15 @@
 									<td th:text="${item.rent_date}"></td>
 									<td th:text="${item.return_date}"></td>
 									<td th:text="${item.status}"></td>
-									<td><a th:href="@{'/admin/approval/' + ${item.approve_id}}"
-											class="btn btn-success btn-sm">Aprroved</a></td>
-									<td>
-										<a class="btn btn-danger btn-sm" /> Reject
+									<td th:if="${item.status} == 'Pending'">
+									<a th:href="@{'/admin/approval/' + ${item.approve_id}}"
+										class="btn btn-success btn-sm">Approved</a>
+									<a th:href="@{'/admin/history/' + ${item.approve_id} + '?information=Rejected'}"
+										class="btn btn-danger btn-sm">Reject</a>
 									</td>
+									<td th:if="${item.status} == 'approved'">
+									<a th:href="@{'/admin/history/' + ${item.approve_id} + '?information=Returned'}"
+										class="btn btn-info btn-sm">Returned</a></td>
 								</tr>
 							</tbody>
 						</table>
