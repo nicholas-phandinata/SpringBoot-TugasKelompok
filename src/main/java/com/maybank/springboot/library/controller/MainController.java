@@ -78,6 +78,10 @@ public class MainController {
 		}
 		return "home";
 	}
+	@RequestMapping("/403")
+	public String forbidden() {
+		return "403";
+	}
 
 	@RequestMapping("rent")
 	public String rent(Model model) {
