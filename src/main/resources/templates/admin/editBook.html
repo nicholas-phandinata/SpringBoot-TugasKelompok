@@ -117,7 +117,7 @@
 								<td>Book Cover:</td>
 								<td>
 									<input type="file" value="Change Images" name="fileImage" id="fileImage"
-										accept="image/jpeg" onchange="previewFile()" th:text="@{'/images/'+${book.book_id}+'/'+${book.book_image}}" th:text="@{'/images/'+${book.book_id}+'/'+${book.book_image}}"/>
+										accept="image/jpeg" onchange="previewFile()" th:value="@{'/images/'+${book.book_id}+'/'+${book.book_image}}" th:text="@{'/images/'+${book.book_id}+'/'+${book.book_image}}"/>
 								</td>
 							</tr>
 							<tr>

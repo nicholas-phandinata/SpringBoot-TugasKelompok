@@ -388,7 +388,7 @@ public class MainController {
 		
 		historyService.addHistory(information, approveId, rentID, ID, bookID, rentDate, returnDate, employee, quantity);
 		return "redirect:/admin/approval";
-
+	}
 	// Report
 	@RequestMapping("/admin/report")
 	public String report(Model model) {
