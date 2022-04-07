@@ -27,12 +27,12 @@
 	<!-- Sidebar -->
 		<div class="bg-white" id="sidebar-wrapper">
 			<div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom"><i class="	fas fa-book-open me-2"></i>Perpusnas</div>
-			<div class="list-group list-gri up-flush my-3"> <a th:href="@{/admin}" class="list-group-item list-group-item-action bg-transparent second-text active"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+			<div class="list-group list-gri up-flush my-3"> <a th:href="@{/admin}" class="list-group-item list-group-item-action bg-transparent second-text"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
 			<a th:href="@{/admin/category}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i class="fas fa-book me-2"></i>Book Category</a>
 			<a th:href="@{/admin/bookList}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i class="fas fa-book me-2"></i>Book</a>
 			<a th:href="@{/admin/approval}" class="list-group-item list-groui -item-action bg-transparent second-text fw-bold"><i class="fas fa-chart-line me-2"></i>Approval</a>
 			<a th:href="@{/admin/report}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i class="fas fa-paperclip me-2"></i>History</a>
-			<a th:href="@{/admin/stock}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i class="fas fa-paperclip me-2"></i>Out of Stock</a>
+			<a th:href="@{/admin/stock}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold active"><i class="fas fa-paperclip me-2"></i>Out of Stock</a>
 			<a th:href="@{/logout}" sec:authorize="isAuthenticated()" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i class="fas fa-power-off me-2"></i>Logout</a>
 		</div>
 	</div>
@@ -61,10 +61,10 @@
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle second-text fw-bold" href="#"
 							id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-							aria-expanded="false"> <i class="fas fa-user me-2"
-								sec:authentication="principal.username"></i>
-						</a>
-							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							aria-expanded="false"> <i
+							class="fas fa-user me-2"></i> <i
+							sec:authentication="principal.username"></i> </a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<!--								<li><a class="dropdown-item" href="#" >Profile</a></li>
 								<li><a class="dropdown-item" href="#">Settings</a></li>-->
 								<li><a class="dropdown-item" th:href="@{/logout}"
