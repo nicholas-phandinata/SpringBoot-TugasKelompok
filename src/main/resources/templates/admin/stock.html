@@ -19,42 +19,24 @@
 <link th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}">
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
-<title>Edit Book</title>
+<title>Stock</title>
 </head>
 
 <body>
 	<div class="d-flex" id="wrapper">
 		<!-- Sidebar -->
 		<div class="bg-white" id="sidebar-wrapper">
-			<div
-				class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">
-				<i class="	fas fa-book-open me-2"></i>Perpusnas
-			</div>
 			<div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom"><i
 					class="	fas fa-book-open me-2"></i>Perpusnas</div>
 			<div class="list-group list-group-flush my-3">
 				<a th:href="@{/admin}"
 					class="list-group-item list-group-item-action bg-transparent second-text active"><i
-					class="fas fa-tachometer-alt me-2"></i>Dashboard</a> <a
-					th:href="@{/admin/category}"
-					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-					class="fas fa-book me-2"></i>Book Category</a> <a
-					th:href="@{/admin/bookList}"
 						class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
 				<a th:href="@{/admin/category}"
 					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-					class="fas fa-book me-2"></i>Book</a> <a th:href="@{/admin/approval}"
-					class="list-group-item list-groui -item-action bg-transparent second-text fw-bold"><i
-					class="fas fa-chart-line me-2"></i>Approval</a> <a
-					th:href="@{/admin/report}"
 						class="fas fa-book me-2"></i>Book Category</a>
 				<a th:href="@{/admin/bookList}"
 					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-					class="fas fa-paperclip me-2"></i>Reports</a> <a th:href="@{/logout}"
-					sec:authorize="isAuthenticated()"
-					class="list-group-item list-group-item-action bg-transparent text-danger fw-bold">
-					<i class="fas fa-power-off me-2"></i>Logout
-				</a>
 						class="fas fa-book me-2"></i>Book</a>
 								<a th:href="@{/admin/approval}" class="list-group-item list-groui -item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-chart-line me-2"></i>Approval</a>
@@ -76,7 +58,7 @@
 				<div class="d-flex align-items-center">
 					<i class="fas fa-align-left primary-text fs-4 me-3"
 						id="menu-toggle"></i>
-					<h2 class="fs-2 m-0">Edit Book</h2>
+					<h2 class="fs-2 m-0">Stock</h2>
 				</div>
 
 				<button class="navbar-toggler" type="button"
@@ -103,97 +85,88 @@
 					</ul>
 				</div>
 			</nav>
+
 			<div class="container-fluid px-4">
-				<body>
-					<div
-						class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-						<div align="center" class="container col-lg-4">
-							<form action="#" th:action="@{/admin/edit-book}"
-								th:object="${book}" method="post" enctype="multipart/form-data">
 
-								<table border="0" cellpadding="10">
-									<tr>
-										<td>BOOK ID:</td>
-										<td><input type="text" th:field="*{book_id}" readonly /></td>
-									</tr>
-									<tr>
-										<td>BOOK TITLE:</td>
-										<td><input type="text" th:field="*{book_title}" /></td>
-									</tr>
-									<tr>
-										<td>BOOK AUTHOR:</td>
-										<td><input type="text" th:field="*{book_author}" /></td>
-									</tr>
-									<tr>
-										<td>BOOK PUBLISHER:</td>
-										<td><input type="text" th:field="*{book_publisher}" /></td>
-									</tr>
-									<tr>
-										<td>QUANTITY:</td>
-										<td><input type="number" th:field="*{quantity}" min="1" /></td>
-									</tr>
-									<tr>
-										<td><label for="cars">Category:</label></td>
-										<td><select name="category" id="category">
-												<option th:text="${book.category.category_name}"
-													th:value="${book.category.category_id}"></option>
-												<option th:each="cat : ${listCategory}"
-													th:value="${cat.category_id}"
-													th:text="${cat.category_name}"></option>
-										</select></td>
-									</tr>
-									<tr>
-										<td>Book Cover:</td>
-										<td><input type="file" value="Change Images"
-											name="fileImage" id="fileImage" accept="image/jpeg"
-											onchange="previewFile()"
-											th:value="@{'/images/'+${book.book_id}+'/'+${book.book_image}}"
-											th:text="@{'/images/'+${book.book_id}+'/'+${book.book_image}}" />
-										</td>
-									</tr>
-									<tr>
-										<td>Book Cover Preview</td>
-										<td><img
-											th:src="@{'/images/'+${book.book_id}+'/'+${book.book_image}}"
-											alt="" height="200"></td>
-									</tr>
-									<tr>
-										<td>Description</td>
-										<td><textarea th:field="*{description}"
-												th:text="*{description}"> </textarea></td>
-									</tr>
-									<tr>
-										<td>Info:</td>
-										<td><input class="form-control" id="info" rows="10"
-											name="info" th:field="*{info}" /></td>
-									</tr>
 
-									<tr>
-										<td colspan="2"><button type="submit">Save</button></td>
-									</tr>
-								</table>
-							</form>
-						</div>
-					</div>
-				</body>
+				<div class="">
+					<table class="table bg-white rounded shadow-sm  table-hover"
+						id="table_id">
+						<thead>
+							<tr>
+								<th scope="col">Book ID</th>
+								<th scope="col">Book Title</th>
+								<th scope="col">Book Cover</th>
+								<th scope="col">Quantity</th>
+								<th align="center">Tambah Quantity</th>
+							</tr>
+						</thead>
+						<tbody>
+							<div th:each="b : ${Books}">
+								<tr>
+									<th scope="row" th:text="${b.book_id}"></th>
+									<td th:text="${b.book_title}"></td>
+									<td><img style="width: 200px; height: 330px;" width="10"
+										th:src="@{'/images/'+${b.book_id}+'/'+${b.book_image}}" alt=""
+										class="card-img-top"></td>
+									<td th:text="${b.quantity}"></td>
+
+
+									<!-- Start Modal Update-->
+									<td>
+
+										<form action="#" th:action="@{/admin/stock}" method="post">
+											<input type="number" id="val" name="val"> 
+											<input type="hidden" id="book_id" name="book_id" th:value="${b.book_id}" > 
+											<button type="submit" class="button">Add Qty</button>
+										</form>
+									</td>
+						</tbody>
+					</table>
+				</div>
 			</div>
-			<script type="text/javascript">
-				function previewFile() {
-					var preview = document.querySelector('img');
-					var file = document.querySelector('input[type=file]').files[0];
-					var reader = new FileReader();
+		</div>
+	</div>
+	<!-- /#page-content-wrapper -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript" charset="utf8"
+		src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#table_id').DataTable();
+		});
+	</script>
+	<script>
+		var el = document.getElementById("wrapper");
+		var toggleButton = document.getElementById("menu-toggle");
 
-					reader.onloadend = function() {
-						preview.src = reader.result;
-					}
+		toggleButton.onclick = function() {
+			el.classList.toggle("toggled");
+		};
+	</script>
+	<script type="text/javascript">
+		function previewFile() {
+			var preview = document.querySelector('img');
+			var file = document.querySelector('input[type=file]').files[0];
+			var reader = new FileReader();
 
-					if (file) {
-						reader.readAsDataURL(file);
-					} else {
-						preview.src = "";
-					}
-				}
-			</script>
+			reader.onloadend = function() {
+				preview.src = reader.result;
+			}
+
+			if (file) {
+				reader.readAsDataURL(file);
+			} else {
+				preview.src = "";
+			}
+		}
+	</script>
 </body>
 
 </html>

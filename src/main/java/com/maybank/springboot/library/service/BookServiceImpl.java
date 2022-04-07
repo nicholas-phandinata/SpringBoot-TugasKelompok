@@ -63,5 +63,19 @@ public class BookServiceImpl implements BookService{
 		// TODO Auto-generated method stub
 		return bookRepo.searchBook(keyword);
 	}
+	
+	@Override
+	public List<Book> lisNotAvailableBook() {
+		// TODO Auto-generated method stub
+		return bookRepo.listNotAvailableBook();
+	}
+
+	@Override
+	public String updateQuantityAdmin(int quantity, int bookID) {
+		// TODO Auto-generated method stub
+		bookRepo.updateQuantity(quantity, bookID);
+		return "Update Quantity Successfull";
+	}
+
 
 }

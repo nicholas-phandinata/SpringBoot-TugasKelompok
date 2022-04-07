@@ -20,4 +20,8 @@ public interface BookService {
 	List<Book> findBy(String keyword);
 	
 	Long jmlBook();
+	
+	List<Book> lisNotAvailableBook();
+	
+	String updateQuantityAdmin(int quantity, int bookID);
 }

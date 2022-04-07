@@ -499,6 +499,27 @@ public class MainController {
 
 	}
 	
+	// Report
+			@RequestMapping("/admin/stock")
+			public String stock(Model model) {
+	 			List<Book> displayBooks = bookService.lisNotAvailableBook();
+//	 			System.out.println("Category" + displayCategory);
+	 			model.addAttribute("Books", displayBooks);
+	 			
+	 			return "/admin/stock";
+			}
+			
+			// Controller Category Book
+			@RequestMapping(value = "/admin/stock", method = RequestMethod.POST)
+			public String stockAdmin(@RequestParam("val") int val,@RequestParam("book_id") int book_id, Model model){
+				System.out.println("val" +(val));
+				System.out.println("bookID"+(book_id));
+				bookService.updateQuantityAdmin(val, book_id);
+				return "redirect:/admin/stock";
+
+			}
+		
+	
 
 	// BAGIAN LOGIN
 	@GetMapping("/login")

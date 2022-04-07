@@ -26,4 +26,10 @@ public interface BookRepository extends JpaRepository<Book, Integer>{
 	@Query("SELECT b FROM Book b WHERE CONCAT(b.book_title, ' ', b.book_author, ' ', b.book_publisher) LIKE %?1%")
 	public List<Book> searchBook(String keyword);
 	
+	@Query("SELECT b FROM Book b WHERE b.quantity < 1")
+	List<Book> listNotAvailableBook();
+	
+	@Query(value = "Update book SET quantity = :quantity WHERE book_id = :bookID", nativeQuery = true)
+	void updateQuantityAdmin(@Param("quantity") int quantity, @Param("bookID") int bookID);
+	
 }
