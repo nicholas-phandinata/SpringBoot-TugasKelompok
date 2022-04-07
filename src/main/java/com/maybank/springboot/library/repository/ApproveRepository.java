@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -37,5 +39,10 @@ public interface ApproveRepository extends JpaRepository<Approve, Integer>{
 	@Query(value = "Update approve SET status = :status, employee =:employee WHERE  approve_id = :approvedID", nativeQuery = true)
 	@Transactional
 	void updateStatus(@Param("status") String status, @Param("employee") String firstName ,@Param("approvedID") int approvedID);
+	
+	@Modifying
+	@Query(value = "UPDATE `approve` SET `status` = 'approved', employee = :emp ;", nativeQuery = true)
+	@Transactional
+	void approveAll(@Param("emp") String emp);
 	
 }

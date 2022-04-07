@@ -63,4 +63,11 @@ public class ApproveServiceImpl implements ApproveService{
 		return "Update Successfull";
 	}
 
+	@Override
+	public String approveAll(String emp) {
+		// TODO Auto-generated method stub
+		approveRepo.approveAll(emp);
+		return "update success";
+	}
+
 }

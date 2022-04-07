@@ -23,4 +23,5 @@ public interface ApproveService {
 	
 	String updateStatus(String status, String firstName, int approvedID);
 	
+	String approveAll(String emp);
 }
