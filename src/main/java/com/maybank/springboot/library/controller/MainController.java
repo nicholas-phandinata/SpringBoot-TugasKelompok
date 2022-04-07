@@ -266,6 +266,7 @@ public class MainController {
 		Long jmlUser= userService.jmlUser();
 		Long jmlHis = historyService.jmlHist();
 		List<Approve> jmlWait = approveService.jmlWait();
+		List<Rent> top = rentService.listAllRent();
 
 		model.addAttribute("jml_book", jmlBooks);
 		model.addAttribute("jml_cat", jmlCat);
@@ -274,6 +275,7 @@ public class MainController {
 		model.addAttribute("Books", displayBooks);
 		model.addAttribute("jml_his", jmlHis);
 		model.addAttribute("jmlWait", jmlWait);
+		model.addAttribute("top", top);
 		
 		return "/admin/index";
 	}
@@ -454,6 +456,7 @@ public class MainController {
 		});
 		return "redirect:/admin/approval";
 	}
+	
 	@RequestMapping("admin/approval/reject-all")
 	public String rejectAll(@Param("action") String action) {	
 		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();

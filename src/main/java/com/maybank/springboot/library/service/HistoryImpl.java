@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.maybank.springboot.library.model.History;
+import com.maybank.springboot.library.model.Rent;
 import com.maybank.springboot.library.repository.ApproveRepository;
 import com.maybank.springboot.library.repository.BookRepository;
 import com.maybank.springboot.library.repository.HistoryRepository;
+import com.maybank.springboot.library.repository.RentRepository;
 
 @Service
 public class HistoryImpl implements HistoryService{

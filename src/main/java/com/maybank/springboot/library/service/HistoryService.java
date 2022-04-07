@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import com.maybank.springboot.library.model.History;
+import com.maybank.springboot.library.model.Rent;
 
 @Service
 public interface HistoryService {
@@ -21,4 +22,5 @@ public interface HistoryService {
 	List<History> searchByDate(String rent_date, String return_date);
 	
 	Long jmlHist();
+	
 }

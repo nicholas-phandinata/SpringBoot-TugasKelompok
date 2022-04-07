@@ -177,6 +177,9 @@
 									<th scope="col">Book ID</th>
 									<th scope="col">Book Title</th>
 									<th scope="col">Book Category</th>
+									<th scope="col">Book Publisher</th>
+									<th scope="col">Quantity</th>
+									<th scope="col">Info</th>
 									<th scope="col">Book Cover</th>
 									<th align="center">Action</th>
 								</tr>
@@ -187,6 +190,9 @@
 										<th scope="row" th:text="${b.book_id}"></th>
 										<td th:text="${b.book_title}"></td>
 										<td th:text="${b.category.category_name}"></td>
+										<td th:text="${b.book_publisher}"></td>
+										<td th:text="${b.quantity}"></td>
+										<td th:text="${b.info}"></td>
 										<td><img style="width: 200px; height: 330px;" width="10"
 												th:src="@{'/images/'+${b.book_id}+'/'+${b.book_image}}" alt=""
 												class="card-img-top"></td>

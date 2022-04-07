@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.maybank.springboot.library.model.History;
+import com.maybank.springboot.library.model.Rent;
 
 public interface HistoryRepository extends JpaRepository<History, Integer>{
 	@Modifying
