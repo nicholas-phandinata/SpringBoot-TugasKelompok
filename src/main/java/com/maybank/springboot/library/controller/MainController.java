@@ -247,9 +247,11 @@ public class MainController {
  			model.addAttribute("listCategory", displayCategory);
  			model.addAttribute("book", new Book());
  			model.addAttribute("Books", displayBooks);
+// 			System.out.println(displayBooks);
  			if(keyword != null) {
  				List<Book> displayBooks1 = bookService.findBy(keyword);
  				model.addAttribute("Books", displayBooks1);
+ 				System.out.println(displayBooks1);
  			}
  			
  			return "/admin/book";
