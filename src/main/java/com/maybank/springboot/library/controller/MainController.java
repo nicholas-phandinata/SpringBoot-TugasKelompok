@@ -264,12 +264,17 @@ public class MainController {
 		Long jmlBooks = bookService.jmlBook();
 		Long jmlCat= categoryService.jmlCat();
 		Long jmlUser= userService.jmlUser();
-		
+		Long jmlHis = historyService.jmlHist();
+		List<Approve> jmlWait = approveService.jmlWait();
+
 		model.addAttribute("jml_book", jmlBooks);
 		model.addAttribute("jml_cat", jmlCat);
 		model.addAttribute("jml_user", jmlUser);
 		model.addAttribute("category", new Category());
 		model.addAttribute("Books", displayBooks);
+		model.addAttribute("jml_his", jmlHis);
+		model.addAttribute("jmlWait", jmlWait);
+		
 		return "/admin/index";
 	}
 

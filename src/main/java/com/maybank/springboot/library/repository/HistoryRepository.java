@@ -36,4 +36,7 @@ public interface HistoryRepository extends JpaRepository<History, Integer>{
 	@Query(value = "SELECT * FROM `history`"
 			+ "	WHERE rent_date > :rent_date AND return_date < :return_date", nativeQuery = true)
 	List<History> searchByDate(@Param("rent_date") String rent_date, @Param("return_date") String return_date);
+	
+	@Query(value = "SELECT COUNT(*) FROM `history`", nativeQuery = true)
+	public Long jmlHist();
 }

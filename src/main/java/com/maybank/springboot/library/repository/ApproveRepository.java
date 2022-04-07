@@ -3,9 +3,6 @@ package com.maybank.springboot.library.repository;
 import java.util.List;
 
 import javax.transaction.Transactional;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -44,5 +41,8 @@ public interface ApproveRepository extends JpaRepository<Approve, Integer>{
 	@Query(value = "UPDATE `approve` SET `status` = 'approved', employee = :emp ;", nativeQuery = true)
 	@Transactional
 	void approveAll(@Param("emp") String emp);
+	
+	@Query(value = "SELECT * FROM Approve b WHERE b.status='pending' GROUP BY b.id limit 10", nativeQuery = true)
+	List<Approve> jmlWait();
 	
 }

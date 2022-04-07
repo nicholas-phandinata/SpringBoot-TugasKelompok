@@ -3,8 +3,6 @@ package com.maybank.springboot.library.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-
-import com.maybank.springboot.library.model.Approve;
 import com.maybank.springboot.library.model.History;
 
 @Service
@@ -21,4 +19,6 @@ public interface HistoryService {
 	List<History> listAll();
 	
 	List<History> searchByDate(String rent_date, String return_date);
+	
+	Long jmlHist();
 }

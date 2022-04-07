@@ -21,7 +21,7 @@
 			<div class="list-group list-gri up-flush my-3"> <a th:href="@{/admin}" class="list-group-item list-group-item-action bg-transparent second-text active"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
 			<a th:href="@{/admin/category}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i class="fas fa-book me-2"></i>Book Category</a>
 			<a th:href="@{/admin/bookList}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i class="fas fa-book me-2"></i>Book</a>
-			<a th:href="@{/admin/approval}" class="list-group-item list-groui -item-action bg-transparent second-text fw-bold"><i class="fas fa-chart-line me-2"></i>Approval</a>
+			<a th:href="@{/admin/approval}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i class="fas fa-chart-line me-2"></i>Approval</a>
 			<a th:href="@{/admin/report}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i class="fas fa-paperclip me-2"></i>History</a>
 			<a th:href="@{/admin/stock}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i class="fas fa-paperclip me-2"></i>Out of Stock</a>
 			<a th:href="@{/logout}" sec:authorize="isAuthenticated()" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i class="fas fa-power-off me-2"></i>Logout</a>
@@ -95,54 +95,36 @@
 						</div>
 					</div>
 
-					<!--<div class="col-md-3">
+					<div class="col-md-3">
 						<div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
 							<div>
-								<h3 class="fs-2">25</h3>
-								<p class="fs-5">Mistery</p>
+								<h3 class="fs-2" th:text="${jml_his}"></h3>
+								<p class="fs-5">Transactional</p>
 							</div>
 							<i class="fas fa-chart-line fs-1 primary-text border rounded-full secondary-bg p-3"></i>
 						</div>
-					</div>-->
+					</div>
 				</div>
-
-				<div class="row my-5">
-					<h3 class="fs-4 mb-3">Rent Approval</h3>
-					<div class="col">
+				
+				<div class="row my-2">
+					<h3 class="fs-4 mb-2">Waiting</h3>
+					<div class="col-6">
 						<table class="table bg-white rounded shadow-sm  table-hover">
 							<thead>
 								<tr>
-									<th scope="col" width="50">#</th>
-									<th scope="col">Rent ID</th>
-									<th scope="col">Book Name</th>
-									<th scope="col">Rent ID</th>
-									<th scope="col">Rent Details</th>
-									<th scope="col">&nbsp;</th>
-									<th scope="col">&nbsp;</th>
+									<th scope="col">Member</th>
+									<th scope="col">Book Title</th>
+									<th scope="col">Status</th>
+									<th scope="col">Rent Date</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<th scope="row">1</th>
-									<td>1</td>
-									<td>Avangers</td>
-									<td>2</td>
-									<td>2</td>
-									<td><button type="button" class="btn btn-success">Approve</button>
-										<button type="button" class="btn btn-danger">Decline</button>
-									</td>
+								<tr  th:each="item : ${jmlWait}">
+									<td scope="col" th:text="${item.user.firstName} + ' ' + ${item.user.lastName} "></td>
+									<td scope="col" th:text="${item.book.book_title}"></td>
+									<td scope="col" th:text="${item.status}"></td>
+									<td scope="col" th:text="${item.rent_date}"></td>
 								</tr>
-								<tr>
-									<th scope="row">2</th>
-									<td>2</td>
-									<td>batman</td>
-									<td>3</td>
-									<td>2</td>
-									<td><button type="button" class="btn btn-success">Approve</button>
-										<button type="button" class="btn btn-danger">Decline</button>
-									</td>
-								</tr>
-
 							</tbody>
 						</table>
 					</div>

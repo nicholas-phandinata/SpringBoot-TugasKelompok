@@ -70,4 +70,11 @@ public class ApproveServiceImpl implements ApproveService{
 		return "update success";
 	}
 
+	@Override
+	public List<Approve> jmlWait() {
+		// TODO Auto-generated method stub
+		return approveRepo.jmlWait();
+	}
+
+
 }

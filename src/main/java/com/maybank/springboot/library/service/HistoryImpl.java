@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.maybank.springboot.library.model.Approve;
 import com.maybank.springboot.library.model.History;
 import com.maybank.springboot.library.repository.ApproveRepository;
 import com.maybank.springboot.library.repository.BookRepository;
@@ -55,6 +54,12 @@ public class HistoryImpl implements HistoryService{
 	public List<History> searchByDate(String rent_date, String return_date) {
 		
 		return historyRepo.searchByDate(rent_date, return_date);
+	}
+
+	@Override
+	public Long jmlHist() {
+		// TODO Auto-generated method stub
+		return historyRepo.count();
 	}
 		
 }
