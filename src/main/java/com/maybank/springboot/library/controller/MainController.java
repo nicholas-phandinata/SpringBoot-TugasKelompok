@@ -18,6 +18,7 @@ import com.maybank.springboot.library.model.History;
 import com.maybank.springboot.library.service.CategoryService;
 import com.maybank.springboot.library.service.HistoryService;
 
+import org.hibernate.query.criteria.internal.expression.function.AggregationFunction.COUNT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -411,6 +412,16 @@ public class MainController {
 		Long currentID =  userService.getCurrentID(currentUserName);
 		System.out.println("id emp "+currentID);
 		List<Approve> displayApprove = approveService.listAllApprove();
+		
+		displayApprove.forEach(data -> {
+			if(data.getStatus().equals("approved")) {
+				model.addAttribute("return", true);
+			}
+			if(data.getStatus().equals("Pending")) {
+				model.addAttribute("approve", true);
+			}
+		});
+
 		model.addAttribute("Approves", displayApprove);
 		return "/admin/approval";
 

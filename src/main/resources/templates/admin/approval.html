@@ -120,9 +120,9 @@
 							</tbody>
 						</table>
 						<center>
-							<a href="" onclick="return confirm('Are you sure you want to Approve All?');" th:href="@{/admin/approval/approve-all}" class="btn btn-success"> Approve All
+							<a href="" th:if = "${approve} == true" onclick="return confirm('Are you sure you want to Approve All?');" th:href="@{/admin/approval/approve-all}" class="btn btn-success"> Approve All
 							</a>
-							<a href="" onclick="return confirm('Are you sure you want to Return All?');"  th:href="@{/admin/approval/return-all}" class="btn btn-info"> Return All </a>
+							<a href="" th:if = "${return} == true" onclick="return confirm('Are you sure you want to Return All?');"  th:href="@{/admin/approval/return-all}" class="btn btn-info"> Return All </a>
 							<a href="" onclick="return confirm('Are you sure you want to Reject All?');" th:href="@{/admin/approval/reject-all}" class="btn btn-danger"> Reject All </a>
 						</center>
 					</div>
