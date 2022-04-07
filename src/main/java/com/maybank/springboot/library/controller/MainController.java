@@ -341,9 +341,38 @@ public class MainController {
 	}
 	
 	@PostMapping("/admin/edit-book")
-	public String editBook(@ModelAttribute Book book) {
-		System.out.println("Form Data: " + book);
-		bookService.saveBook(book);
+	public String editBook(@ModelAttribute Book book,  @RequestParam("fileImage") MultipartFile multipartFile,
+			RedirectAttributes ra) throws IOException {
+		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+		
+		
+		if(fileName == "") { // jika edit tnapa upload gambar
+			Book book2 = bookService.getBookByID(book.getBook_id());
+			String fileName1 = book2.getBook_image();
+			book.setBook_image(fileName1);
+			bookService.saveBook(book);
+			
+		}else {
+			book.setBook_image(fileName);
+			Book saveBook1 = bookService.saveBook(book);
+			String uploadDir = "C:\\Users\\USER\\Documents\\SpringKelompok\\SpringBoot-TugasKelompok\\src\\main\\resources\\static\\images\\"
+					+ saveBook1.getBook_id();
+			System.out.println("Form Data: " + book);
+			Path uploadPath = Paths.get(uploadDir);
+			if (!Files.exists(uploadPath)) {
+				Files.createDirectories(uploadPath);
+			}
+	
+			try (InputStream inputStream = multipartFile.getInputStream()) {
+				Path filePath = uploadPath.resolve(fileName);
+				System.out.println(filePath.toFile().getAbsoluteFile());
+				Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+			} catch (IOException e) {
+				throw new IOException("Could not save uploaded file :" + fileName);
+			}
+		}		
+		
+//		bookService.saveBook(book);
 		return "redirect:/admin/bookList";
 	}
 
