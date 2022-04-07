@@ -18,7 +18,6 @@ import com.maybank.springboot.library.model.History;
 import com.maybank.springboot.library.service.CategoryService;
 import com.maybank.springboot.library.service.HistoryService;
 
-import org.hibernate.query.criteria.internal.expression.function.AggregationFunction.COUNT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -37,8 +36,6 @@ import com.maybank.springboot.library.service.BookService;
 
 import com.maybank.springboot.library.service.RentService;
 import com.maybank.springboot.library.service.user.UserService;
-
-import lombok.Data;
 
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -313,7 +310,7 @@ public class MainController {
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 		book.setBook_image(fileName);
 		Book saveBook1 = bookService.saveBook(book);
-		String uploadDir = "C:\\Users\\USER\\Documents\\SpringKelompok\\SpringBoot-TugasKelompok\\src\\main\\resources\\static\\images\\"
+		String uploadDir = "/Users/nicholasphandinata/Documents/GitHub/SpringBoot-TugasKelompok/src/main/resources/static/images/"
 				+ saveBook1.getBook_id();
 
 		Path uploadPath = Paths.get(uploadDir);
@@ -383,7 +380,7 @@ public class MainController {
 		}else {
 			book.setBook_image(fileName);
 			Book saveBook1 = bookService.saveBook(book);
-			String uploadDir = "C:\\Users\\USER\\Documents\\SpringKelompok\\SpringBoot-TugasKelompok\\src\\main\\resources\\static\\images\\"
+			String uploadDir = "/Users/nicholasphandinata/Documents/GitHub/SpringBoot-TugasKelompok/src/main/resources/static/images/"
 					+ saveBook1.getBook_id();
 			System.out.println("Form Data: " + book);
 			Path uploadPath = Paths.get(uploadDir);
