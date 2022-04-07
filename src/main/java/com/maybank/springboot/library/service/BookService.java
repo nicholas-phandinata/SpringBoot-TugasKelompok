@@ -8,6 +8,8 @@ public interface BookService {
 	List<Book> listAllBook();
 
 	List<Book> listAvailableBook();
+	
+	List<Book> listBookByKeyword(String keyword);
 
 	Book getBookByID(int bookID);
 

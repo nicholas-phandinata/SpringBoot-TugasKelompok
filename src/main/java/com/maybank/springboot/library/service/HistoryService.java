@@ -14,4 +14,6 @@ public interface HistoryService {
 			String returnDate, String employee, int quantity);
 	
 	List<History> listHistoryByID(Long ID);
+	
+	List<History> listHistoryByKeyword(Long ID, String keyword);
 }

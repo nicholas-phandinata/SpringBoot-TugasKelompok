@@ -58,4 +58,10 @@ public class BookServiceImpl implements BookService{
 		return bookRepo.count();
 	}
 
+	@Override
+	public List<Book> listBookByKeyword(String keyword) {
+		// TODO Auto-generated method stub
+		return bookRepo.searchBook(keyword);
+	}
+
 }

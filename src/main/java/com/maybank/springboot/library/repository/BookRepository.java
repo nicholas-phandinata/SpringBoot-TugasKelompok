@@ -23,4 +23,7 @@ public interface BookRepository extends JpaRepository<Book, Integer>{
 	@Query(value = "SELECT * FROM `book` WHERE CONCAT(book_title, ' ', book_author, ' ', book_publisher, ' ', quantity) LIKE %?1%", nativeQuery = true)
 	List<Book> findBy(String keyword);
 	
+	@Query("SELECT b FROM Book b WHERE CONCAT(b.book_title, ' ', b.book_author, ' ', b.book_publisher) LIKE %?1%")
+	public List<Book> searchBook(String keyword);
+	
 }

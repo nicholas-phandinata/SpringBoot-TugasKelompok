@@ -64,12 +64,19 @@ public class MainController {
 
 
 	@RequestMapping("/")
-	public String home(Model model) {
-		List<Book> displayBooks = bookService.listAvailableBook();
-		
-		model.addAttribute("Books", displayBooks);
+	public String home(Model model, @RequestParam(name="Keyword", defaultValue="") String keyword) {
+		if(!"".equals(keyword)) {
+			List<Book> displayBooks = bookService.listBookByKeyword(keyword);
+			if(displayBooks.isEmpty()) {
+				model.addAttribute("NotFound", "Yes");
+			}else {
+				model.addAttribute("Books", displayBooks);
+			}
+		}else {
+			List<Book> displayBooks = bookService.listAvailableBook();
+			model.addAttribute("Books", displayBooks);
+		}
 		return "home";
-
 	}
 
 	@RequestMapping("rent")
@@ -184,14 +191,30 @@ public class MainController {
 	}
 	
 	@RequestMapping("myHistory")
-	public String myHistory(Model model) {
+	public String myHistory(Model model, @RequestParam(name="Keyword", defaultValue="") String keyword) {
 		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 		Long currentID =  userService.getCurrentID(currentUserName);
 
-		List<History> displayHistory = historyService.listHistoryByID(currentID);
-		model.addAttribute("Histories", displayHistory);
+		if(!"".equals(keyword)) {
+			List<History> displayHistory = historyService.listHistoryByKeyword(currentID, keyword);
+			if(displayHistory.isEmpty()) {
+				model.addAttribute("NotFound", "Yes");
+			}else {
+				model.addAttribute("Histories", displayHistory);
+			}
+		}else {
+			List<History> displayHistory = historyService.listHistoryByID(currentID);
+			model.addAttribute("Histories", displayHistory);
+		}
 		return "history";
 	}
+	
+	@RequestMapping("details/{bookID}")
+	public String details(@PathVariable int bookID) {
+		System.out.println("Get book detail with ID: " + bookID);
+		return "redirect:/";
+	}
+	
 	
     @GetMapping("export")
     public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {

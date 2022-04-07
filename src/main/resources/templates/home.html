@@ -32,13 +32,14 @@
 							Checkout</a></li>
 		<li class="nav-item"><a class="nav-link" href="/myHistory">My
 							History</a></li>
-		<form class="d-flex px-2">
+		<li>
+		<form class="d-flex px-2" th:action="@{/}" method="POST">
                 <div class="input-group">                    
-                    <input type="text" class="form-control" placeholder="Search">
-                    <button type="button" class="btn btn-secondary"><i class="fas fa-search"></i></button>
+                    <input type="text" class="form-control" placeholder="Search" id="Keyword" name="Keyword">
+                    <button type="submit" class="btn btn-secondary"><i class="fas fa-search"></i></button>
                 </div>
             </form>
-
+		</li>
     </ul>
     <ul class="navbar-nav navbar-right">
 					<li class="nav-item dropdown">
@@ -96,7 +97,7 @@
 		<p th:text="${msg_danger}"></p>
 	</div>
 	
-	<div class="container mt-4" id="books">
+	<div th:if="${Books}" class="container mt-4" id="books">
 		<div class="row">
 			<div class="col-md-3 mt-3 mb-2" th:each="book : ${Books}">
 				<div class="card shadow p-3 mb-5 bg-white rounded" style="height: 380px;">
@@ -110,7 +111,7 @@
 						<p class="text-center" th:text="'Quantity: ' + ${book.quantity}"></p>
 					</div>
 					<div class="card-footer">
-						<a href="#" class="float-left btn btn-sm btn-primary">details</a>
+						<a th:href="@{'/details/' + ${book.book_id}}" class="float-left btn btn-sm btn-primary">details</a>
 						<a th:href="@{'/addToCart?bookID=' + ${book.book_id}}"
 							class="float-right btn btn-sm btn-warning">Add to cart</a>
 					</div>
@@ -118,7 +119,10 @@
 			</div>
 		</div>
 	</div>
-
+	
+	<div th:if="${NotFound}">
+	<h3>Search not found, sorry</h3>
+	</div>
 <br><br>
   <!-- Footer -->
   <footer

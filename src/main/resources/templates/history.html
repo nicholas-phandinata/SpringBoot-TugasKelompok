@@ -34,13 +34,14 @@
 							Checkout</a></li>
 		<li class="nav-item active"><a class="nav-link font-weight-bold" href="/myHistory">My
 							History</a></li>
-		<form class="d-flex px-2">
+		<li>
+		<form class="d-flex px-2" th:action="@{/myHistory}" method="POST">
                 <div class="input-group">                    
-                    <input type="text" class="form-control" placeholder="Search">
-                    <button type="button" class="btn btn-secondary"><i class="fas fa-search"></i></button>
+                    <input type="text" class="form-control" placeholder="Search" id="Keyword" name="Keyword">
+                    <button type="submit" class="btn btn-secondary"><i class="fas fa-search"></i></button>
                 </div>
             </form>
-
+        </li>
     </ul>
     <ul class="navbar-nav navbar-right">
 					<li class="nav-item dropdown">
@@ -62,7 +63,7 @@
 </nav>
 </div>
 	
-	<div align="center">
+	<div th:if="${Histories}" align="center">
 		<h1>My History</h1>
 		<br />
 		<table border="1" cellpadding="10">
@@ -89,6 +90,11 @@
 				</tr>
 			</tbody>
 		</table>
+	</div>
+	
+	<div th:if="${NotFound}">
+		<br><br><br>
+		<h3>Search not found, sorry</h3>
 	</div>
 </body>
 </html>

@@ -29,4 +29,7 @@ public interface HistoryRepository extends JpaRepository<History, Integer>{
 	
 	@Query("SELECT h FROM History h WHERE h.user.id = ?1")
 	List<History> listHistoryByUserID(Long ID);
+	
+	@Query("SELECT h FROM History h WHERE h.user.id = ?1 AND CONCAT(h.book.book_title, ' ', h.book.book_author, ' ', h.book.book_publisher) LIKE %?2%")
+	List<History> searchHistory(Long ID, String keyword);
 }

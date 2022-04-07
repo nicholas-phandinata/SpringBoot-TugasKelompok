@@ -38,4 +38,10 @@ public class HistoryImpl implements HistoryService{
 		return historyRepo.listHistoryByUserID(ID);
 	}
 
+	@Override
+	public List<History> listHistoryByKeyword(Long ID, String keyword) {
+		// TODO Auto-generated method stub
+		return historyRepo.searchHistory(ID, keyword);
+	}
+
 }
