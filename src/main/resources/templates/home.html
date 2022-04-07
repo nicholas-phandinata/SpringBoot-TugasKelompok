@@ -13,13 +13,13 @@
 	href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 <link rel="stylesheet" th:href="@{/css/styleuser.css}">
 <meta charset="utf-8" />
-<title>Card View</title>
+<title>Home</title>
 </head>
 <body>
 	<div class="container-fluid custom-nav-container">
 		<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
 			<a class="navbar-brand"><i class="	fas fa-book-open me-1"></i> <span
-				class="font-weight-bold">Perpusnas</span></a>
+				class="font-weight-bold" style="font-size: 16.0pt">Perpusnas</span></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -29,14 +29,23 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item active"><a
-						class="nav-link font-weight-bold" href="/">Home </a></li>
+						class="nav-link font-weight-bold" href="/"> Home&nbsp;&nbsp;<img
+							th:src="@{/img/home.png}" alt="gambar tidak muncul"
+							style="width: 24px; height: 24px;">
+					</a></li>
 					<li class="nav-item"><a class="nav-link" href="/rent">My
-							Rent Cart<span class="sr-only">(current)</span>
+							Rent Cart &nbsp;<img th:src="@{/img/shopping-cart.png}"
+							alt="gambar tidak muncul" style="width: 24px; height: 24px;">
+							<span class="sr-only">(current)</span>
 					</a></li>
 					<li class="nav-item"><a class="nav-link" href="/checkout">My
-							Checkout</a></li>
+							Checkout&nbsp;<img th:src="@{/img/checkout.png}"
+							alt="gambar tidak muncul" style="width: 26px; height: 26px;">
+					</a></li>
 					<li class="nav-item"><a class="nav-link" href="/myHistory">My
-							History</a></li>
+							History&nbsp;<img th:src="@{/img/history.png}"
+							alt="gambar tidak muncul" style="width: 28px; height: 28px;">
+					</a></li>
 					<li>
 						<form class="d-flex px-2" th:action="@{/}" method="POST">
 							<div class="input-group">
@@ -67,7 +76,7 @@
 
 		</nav>
 	</div>
-	
+
 	<section class="home" id="home">
 
 		<div class="row">
@@ -107,8 +116,26 @@
 		class="alert alert-danger alert-dismissible" role="alert">
 		<p th:text="${msg_danger}"></p>
 	</div>
-	
+
 	<div th:if="${Books}" class="container mt-4" id="books">
+
+		<form th:if="${displayCategory}" method="get">
+			<table style="width: 100%">
+				<tr>
+					<td style="width: 50%"><select name="filter" id="filter"
+						class="form-control">
+							<option value="0">Category</option>
+							<option th:each="cat : ${listCategory}"
+								th:value="${cat.category_id}" th:text="${cat.category_name}"></option>
+					</select></td>
+					<td>
+						<button type="submit" class="btn btn-primary">Filter</button>
+					</td>
+				</tr>
+			</table>
+			<br>
+		</form>
+
 		<div class="row">
 			<div class="col-md-3 mt-3 mb-2" th:each="book : ${Books}">
 				<div class="card shadow p-3 mb-5 bg-white rounded"
@@ -124,9 +151,9 @@
 					</div>
 					<div class="card-footer">
 						<button type="button" class="float-left btn btn-sm btn-primary"
-						 data-toggle="modal" th:attr="data-target='#'+${book.book_id}">Details</button>
-						<a th:href="@{'/addToCart?bookID=' + ${book.book_id}}" 
-						class="float-right btn btn-sm btn-warning">Add to cart</a>
+							data-toggle="modal" th:attr="data-target='#'+${book.book_id}">Details</button>
+						<a th:href="@{'/addToCart?bookID=' + ${book.book_id}}"
+							class="float-right btn btn-sm btn-warning">Add to cart</a>
 					</div>
 				</div>
 
@@ -134,42 +161,44 @@
 					role="dialog" aria-labelledby="exampleModalLabel"
 					aria-hidden="true">
 					<div class="vertical-alignment-helper">
-					<div class="modal-dialog vertical-align-center modal-lg" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body">
-							<div class="container">
-							<div class="row">
-							<div class="col">
-							<h3 class="modal-title"
-									th:text="${book.book_title}"></h3>
-							<p th:text="${book.book_author}"></p>
-							<br>
-							<p th:text="${book.description}"></p>
-							<br><br>
-							<p th:text="'Published by: ' + ${book.book_publisher}"></p>
-							</div>
-							<div class="col mt-3">
-							<br>
-							<div class="float-right">
-							<img th:src="@{'/images/'+${book.book_id}+'/'+${book.book_image}}"
-							style="width:300px;height:500px;">
-							</div>
-							<div class="float-right">
-							<p th:text="${book.category.category_name}"></p>
-							</div>
-							</div>
-							</div>
-							</div>
-							</div>
-							<div class="modal-footer">
-							<a th:href="@{'/addToCart?bookID=' + ${book.book_id}}" 
-						class="float-right btn btn-sm btn-warning">Add to cart</a>
+						<div class="modal-dialog vertical-align-center modal-lg"
+							role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<div class="container">
+										<div class="row">
+											<div class="col">
+												<h3 class="modal-title" th:text="${book.book_title}"></h3>
+												<p th:text="${book.book_author}"></p>
+												<br>
+												<p th:text="${book.description}"></p>
+												<br> <br>
+												<p th:text="'Published by: ' + ${book.book_publisher}"></p>
+											</div>
+											<div class="col mt-3">
+												<br>
+												<div class="float-right">
+													<img
+														th:src="@{'/images/'+${book.book_id}+'/'+${book.book_image}}"
+														style="width: 300px; height: 500px;">
+												</div>
+												<div class="float-right">
+													<p th:text="${book.category.category_name}"></p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<a th:href="@{'/addToCart?bookID=' + ${book.book_id}}"
+										class="float-right btn btn-sm btn-warning">Add to cart</a>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -177,17 +206,24 @@
 			</div>
 		</div>
 	</div>
-	</div>
 
 
 
-	<div th:if="${NotFound}">
+	<div th:if="${NotFound}" align="center">
+		<br>
 		<h3>Search not found, sorry</h3>
+		<br>
+		<img
+		th:src="@{/img/sad.png}" alt="gambar tidak muncul"
+		style="width: 100px; height: 100px;">
+		<br><br><br>
 	</div>
-	<br>
-	<br>
-	
-	<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+
+	<a onclick="topFunction()" id="myBtn"> <img
+		th:src="@{/img/up-arrow.png}" alt="gambar tidak muncul"
+		style="width: 24px; height: 24px;">
+	</a>
+	<!-- 	<button onclick="topFunction()" id="myBtn" title="Go to top">Back to top</button> -->
 	<!-- Footer -->
 	<footer class="text-center text-lg-start text-dark"
 		style="background-color: #ECEFF1">
@@ -281,8 +317,8 @@
 
 		<!-- Copyright -->
 		<div class="text-center p-3"
-			style="background-color: rgba(0, 0, 0, 0.2)">© 2022
-			Copyright: Kelompok 3</div>
+			style="background-color: rgba(0, 0, 0, 0.2)">© 2022 Copyright:
+			Kelompok 3</div>
 		<!-- Copyright -->
 	</footer>
 	<!-- Footer -->
@@ -290,15 +326,15 @@
 
 
 	<script>
-      // Get the modal
-      var modal = document.getElementById('flash_id01');
-      // When the user clicks anywhere outside of the modal, close it
-      window.onclick = function(event) {
-        if (event.target == modal) {
-          modal.style.display = "none";
-        }
-      }
-    </script>
+		// Get the modal
+		var modal = document.getElementById('flash_id01');
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function(event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+		}
+	</script>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
@@ -306,46 +342,49 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
 	<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 	<script>
-	var swiper = new Swiper(".books-slider", {
-  loop:true,
-  centeredSlides: true,
-  autoplay: {
-    delay: 5000,
-    disableOnInteraction: false,
-  },
-  breakpoints: {
-    0: {
-      slidesPerView: 1,
-    },
-    768: {
-      slidesPerView: 2,
-    },
-    1024: {
-      slidesPerView: 3,
-    },
-  },
-});
+		var swiper = new Swiper(".books-slider", {
+			loop : true,
+			centeredSlides : true,
+			autoplay : {
+				delay : 5000,
+				disableOnInteraction : false,
+			},
+			breakpoints : {
+				0 : {
+					slidesPerView : 1,
+				},
+				768 : {
+					slidesPerView : 2,
+				},
+				1024 : {
+					slidesPerView : 3,
+				},
+			},
+		});
 	</script>
 	<script>
-//Get the button
-var mybutton = document.getElementById("myBtn");
+		//Get the button
+		var mybutton = document.getElementById("myBtn");
 
-// When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function() {scrollFunction()};
+		// When the user scrolls down 20px from the top of the document, show the button
+		window.onscroll = function() {
+			scrollFunction()
+		};
 
-function scrollFunction() {
-  if (document.body.scrollTop > 40 || document.documentElement.scrollTop > 40) {
-    mybutton.style.display = "block";
-  } else {
-    mybutton.style.display = "none";
-  }
-}
+		function scrollFunction() {
+			if (document.body.scrollTop > 100
+					|| document.documentElement.scrollTop > 100) {
+				mybutton.style.display = "block";
+			} else {
+				mybutton.style.display = "none";
+			}
+		}
 
-// When the user clicks on the button, scroll to the top of the document
-function topFunction() {
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
-}
-</script>
+		// When the user clicks on the button, scroll to the top of the document
+		function topFunction() {
+			document.body.scrollTop = 0;
+			document.documentElement.scrollTop = 0;
+		}
+	</script>
 </body>
 </html>

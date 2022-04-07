@@ -64,7 +64,8 @@ public class MainController {
 
 
 	@RequestMapping("/")
-	public String home(Model model, @RequestParam(name="Keyword", defaultValue="") String keyword) {
+	public String home(Model model, @RequestParam(name="Keyword", defaultValue="") String keyword,
+			@Param("filter") String filter) {
 		if(!"".equals(keyword)) {
 			List<Book> displayBooks = bookService.listBookByKeyword(keyword);
 			if(displayBooks.isEmpty()) {
@@ -73,11 +74,19 @@ public class MainController {
 				model.addAttribute("Books", displayBooks);
 			}
 		}else {
+			List<Category> displayCategory = categoryService.listAllCategory();
 			List<Book> displayBooks = bookService.listAvailableBook();
 			model.addAttribute("Books", displayBooks);
+			model.addAttribute("displayCategory", "Yes");
+			model.addAttribute("listCategory", displayCategory);
+ 			if(filter != null) {
+ 				List<Book> displayBooks1 = bookService.findBy(filter);
+ 				model.addAttribute("Books", displayBooks1);
+ 			}
 		}
 		return "home";
 	}
+	
 	@RequestMapping("/403")
 	public String forbidden() {
 		return "403";
@@ -212,13 +221,6 @@ public class MainController {
 		}
 		return "history";
 	}
-	
-	@RequestMapping("details/{bookID}")
-	public String details(@PathVariable int bookID) {
-		System.out.println("Get book detail with ID: " + bookID);
-		return "redirect:/";
-	}
-	
 	
     @GetMapping("export")
     public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
@@ -512,7 +514,7 @@ public class MainController {
 	@RequestMapping("/admin/report")
 	public String report(Model model, @Param(value = "rent_date")String rent_date, 
 			@Param("return_date") String return_date) {
-		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+//		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 //		Long currentID =  userService.getCurrentID(currentUserName);
 ////		System.out.println("id emp "+currentID);
 		List<History> disHistories = historyService.listAll();

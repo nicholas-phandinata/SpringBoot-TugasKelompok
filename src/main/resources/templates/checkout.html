@@ -33,15 +33,19 @@ th{
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      	<li class="nav-item"><a class="nav-link" href="/">Home
-							
-					</a></li>
+      	<li class="nav-item"><a class="nav-link" href="/">
+		Home&nbsp;&nbsp;<img th:src="@{/img/home.png}" alt="gambar tidak muncul" style="width:24px;height:24px;">	
+		</a></li>
 		<li class="nav-item"><a class="nav-link" href="/rent">My
-							Rent Cart<span class="sr-only">(current)</span></a></li>
+		Rent Cart &nbsp;<img th:src="@{/img/shopping-cart.png}" alt="gambar tidak muncul" style="width:24px;height:24px;">
+		<span class="sr-only">(current)
+		</span></a></li>
 		<li class="nav-item active"><a class="nav-link font-weight-bold" href="/checkout">My
-							Checkout</a></li>
+		Checkout&nbsp;<img th:src="@{/img/checkout.png}" alt="gambar tidak muncul" style="width:26px;height:26px;">
+		</a></li>
 		<li class="nav-item"><a class="nav-link" href="/myHistory">My
-							History</a></li>
+		History&nbsp;<img th:src="@{/img/history.png}" alt="gambar tidak muncul" style="width:28px;height:28px;">
+		</a></li>
     </ul>
     <ul class="navbar-nav navbar-right">
 					<li class="nav-item dropdown">
@@ -62,9 +66,15 @@ th{
   
 </nav>
 </div>
-
+	
+	<div class="container mt-4">
+	<div align="center">
+	<h1>My Checkout</h1><br>
+		<a th:href="@{/export}"
+		 class="btn btn-success btn-sm">Print My Checkout</a>
+	</div>
+	<br>
 	<div align="center" class="table-responsive table-hover">
-		<h1>My Checkout</h1>
 		<br />
 		<table border="1" cellpadding="10" >
 			<thead>
@@ -89,8 +99,7 @@ th{
 			</tbody>
 		</table>
 		<br><br>
-		<a th:href="@{/export}"
-		 class="btn btn-success btn-sm">Print My Checkout</a>
+		</div>
 	</div>
 	
 	<!-- Footer -->

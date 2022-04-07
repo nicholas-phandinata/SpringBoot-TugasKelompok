@@ -34,15 +34,18 @@ th{
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      	<li class="nav-item"><a class="nav-link" href="/">Home
-							
-					</a></li>
+      	<li class="nav-item"><a class="nav-link" href="/">
+      	Home&nbsp;&nbsp;<img th:src="@{/img/home.png}" alt="gambar tidak muncul" style="width:24px;height:24px;">
+      	</a></li>
 		<li class="nav-item active"><a class="nav-link font-weight-bold" href="/rent">My
-							Rent Cart<span class="sr-only">(current)</span></a></li>
+		Rent Cart &nbsp;<img th:src="@{/img/shopping-cart.png}" alt="gambar tidak muncul" style="width:24px;height:24px;">
+		<span class="sr-only">(current)</span></a></li>
 		<li class="nav-item"><a class="nav-link" href="/checkout">My
-							Checkout</a></li>
+		Checkout&nbsp;<img th:src="@{/img/checkout.png}" alt="gambar tidak muncul" style="width:26px;height:26px;">
+		</a></li>
 		<li class="nav-item"><a class="nav-link" href="/myHistory">My
-							History</a></li>
+		History&nbsp;<img th:src="@{/img/history.png}" alt="gambar tidak muncul" style="width:28px;height:28px;">
+		</a></li>
     </ul>
     <ul class="navbar-nav navbar-right">
 					<li class="nav-item dropdown">
@@ -63,9 +66,17 @@ th{
   
 </nav>
 </div>
-
-	<div align="center" class="table-responsive table-hover">
+	
+	<div class="container mt-4">
+	<div align="center">
 		<h1>My Rent Cart</h1><br>
+				<a th:href="@{/cancel-all}"
+		 class="btn btn-danger btn-sm">Cancel All</a>
+		<a th:href="@{/checkout-all}"
+		 class="btn btn-success btn-sm">Checkout All</a>
+		 </div>
+		 <br><br>
+	<div align="center" class="table-responsive table-hover">
 		<table border="1" cellpadding="10">
 			<thead>
 				<tr>
@@ -86,17 +97,13 @@ th{
 					<td th:text="${item.rent_date}"></td>
 					<td th:text="${item.return_date}"></td>
 					<td><a th:href="@{'/deleteRent/' + ${item.rent_id}}"
-						class="btn btn-danger btn-sm">Cancel</a></td>
+						class="btn btn-danger btn-sm"><img th:src="@{/img/cancel.png}" style="width:26px;height:26px;"></a></td>
 					<td><a th:href="@{'/addCheckout/' + ${item.rent_id}}"
-						class="btn btn-success btn-sm">Checkout</a></td>
+						class="btn btn-success btn-sm"><img th:src="@{/img/cart.png}" style="width:26px;height:26px;"></a></td>
 				</tr>
 			</tbody>
 		</table>
-		<br><br>
-		<a th:href="@{/cancel-all}"
-		 class="btn btn-danger btn-sm">Cancel All</a>
-		<a th:href="@{/checkout-all}"
-		 class="btn btn-success btn-sm">Checkout All</a>
+	</div>
 	</div>
 	
 	
