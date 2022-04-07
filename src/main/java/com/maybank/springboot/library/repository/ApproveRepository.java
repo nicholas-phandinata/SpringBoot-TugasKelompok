@@ -37,5 +37,5 @@ public interface ApproveRepository extends JpaRepository<Approve, Integer>{
 	@Query(value = "Update approve SET status = :status, employee =:employee WHERE  approve_id = :approvedID", nativeQuery = true)
 	@Transactional
 	void updateStatus(@Param("status") String status, @Param("employee") String firstName ,@Param("approvedID") int approvedID);
-
+	
 }

@@ -40,7 +40,7 @@
 						class="fas fa-book me-2"></i>Book</a>
 				<a th:href="@{/admin/approval}" class="list-group-item list-groui -item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-chart-line me-2"></i>Approval</a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                <a th:href="@{/admin/report}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-paperclip me-2"></i>Reports</a>
                         <a  th:href="@{/logout}" sec:authorize="isAuthenticated()" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold">
 				<i class="fas fa-power-off me-2" ></i>Logout</a>
@@ -85,13 +85,9 @@
 						</div>
 					</nav>
 
-					<div class="container-fluid px-4">
-						<div class="row g-3 my-2"></div>
-
-
 					<div class="container-fluid px-4"> 
 						<div class="">
-							<div class="col-md-8">
+							<div class="">
 							<!--<div class="col-md-8">
 								<form th:action="@{/admin/bookList}" method="get">
 									<input class="search" type="text" name="keyword"
@@ -100,7 +96,7 @@
 								</form>
 							</div>
 							</div>-->
-							<div class="col-md-8">
+							<div class="">
 								<button type="button" class="button" data-toggle="modal"
 									data-target="#createBook">Create New Book</button>
 							</div>
@@ -179,7 +175,7 @@
 							</div>
 						</div>
 
-						<div class="col">
+						<div class="">
 							<table class="table bg-white rounded shadow-sm  table-hover"
 								id="table_id">
 								<thead>

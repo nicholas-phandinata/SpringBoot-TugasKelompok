@@ -370,6 +370,7 @@ public class MainController {
 		return "redirect:/admin/approval";
 	}
 	
+
 	@RequestMapping("/admin/history/{approveId}")
 	public String history(@PathVariable int approveId, 
 			@RequestParam("information") String information) {
@@ -387,6 +388,17 @@ public class MainController {
 		
 		historyService.addHistory(information, approveId, rentID, ID, bookID, rentDate, returnDate, employee, quantity);
 		return "redirect:/admin/approval";
+
+	// Report
+	@RequestMapping("/admin/report")
+	public String report(Model model) {
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		Long currentID =  userService.getCurrentID(currentUserName);
+		System.out.println("id emp "+currentID);
+		List<Approve> displayApprove = approveService.listAllApprove();
+		model.addAttribute("Approves", displayApprove);
+		return ("/admin/report");
+
 	}
 	
 
