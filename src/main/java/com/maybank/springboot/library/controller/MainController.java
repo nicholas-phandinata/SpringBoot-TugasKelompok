@@ -37,6 +37,8 @@ import com.maybank.springboot.library.service.BookService;
 import com.maybank.springboot.library.service.RentService;
 import com.maybank.springboot.library.service.user.UserService;
 
+import lombok.Data;
+
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -410,9 +412,51 @@ public class MainController {
 		System.out.println("id emp "+currentID);
 		List<Approve> displayApprove = approveService.listAllApprove();
 		model.addAttribute("Approves", displayApprove);
-		
 		return "/admin/approval";
 
+	}
+	
+	@RequestMapping("admin/approval/approve-all")
+	public String approveAll(@Param("action") String action) {
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		String currentName = userService.getfirstName(currentUserName);		
+		approveService.approveAll(currentName);		
+		return "redirect:/admin/approval";
+	}
+	
+	@RequestMapping("admin/approval/return-all")
+	public String returnAll(@Param("action") String action) {
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		String currentName = userService.getfirstName(currentUserName);		
+		List<Approve> approves = approveService.listAllApprove();
+		approves.forEach(data ->{
+			Long ID = data.getUser().getId();
+			int bookID = data.getBook().getBook_id();
+            int quantity = bookService.getBookByID(bookID).getQuantity() + 1;
+			historyService.addHistory("Returned", data.getApprove_id(), 
+					data.getRent_id(), ID, 
+					data.getBook().getBook_id() , 
+					data.getRent_date(), data.getReturn_date(), 
+					currentName, quantity);
+		});
+		return "redirect:/admin/approval";
+	}
+	@RequestMapping("admin/approval/reject-all")
+	public String rejectAll(@Param("action") String action) {	
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		String currentName = userService.getfirstName(currentUserName);		
+		List<Approve> approves = approveService.listAllApprove();
+		approves.forEach(data ->{
+			Long ID = data.getUser().getId();
+			int bookID = data.getBook().getBook_id();
+            int quantity = bookService.getBookByID(bookID).getQuantity() + 1;
+			historyService.addHistory("Rejected", data.getApprove_id(), 
+					data.getRent_id(), ID, 
+					data.getBook().getBook_id() , 
+					data.getRent_date(), data.getReturn_date(), 
+					currentName, quantity);
+		});		
+		return "redirect:/admin/approval";
 	}
 	
 	@RequestMapping("/admin/approval/{approveId}")
