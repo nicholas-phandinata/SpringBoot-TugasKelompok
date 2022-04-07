@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.maybank.springboot.library.model.Approve;
 import com.maybank.springboot.library.model.History;
 
 @Service
@@ -16,4 +17,6 @@ public interface HistoryService {
 	List<History> listHistoryByID(Long ID);
 	
 	List<History> listHistoryByKeyword(Long ID, String keyword);
+	
+	List<History> listAll();
 }

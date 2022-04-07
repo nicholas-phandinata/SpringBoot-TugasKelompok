@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
 	<meta charset="UTF-8" />
@@ -14,41 +16,19 @@
 
 <body>
 	<div class="d-flex" id="wrapper">
-		<!-- Sidebar -->
+	<!-- Sidebar -->
 		<div class="bg-white" id="sidebar-wrapper">
-			<div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom"><i
-					class="	fas fa-book-open me-2"></i>Perpusnas</div>
-			<div class="list-group list-group-flush my-3">
-				<a th:href="@{/admin}"
-					class="list-group-item list-group-item-action bg-transparent second-text active"><i
-						class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
-				<a th:href="@{/admin/category}"
-					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-						class="fas fa-book me-2"></i>Book Category</a>
-				<a th:href="@{/admin/bookList}"
-					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-						class="fas fa-book me-2"></i>Book</a>
-				<a th:href="@{/admin/approval}"
-					class="list-group-item list-groui -item-action bg-transparent second-text fw-bold"><i
-						class="fas fa-chart-line me-2"></i>Approval</a>
-				<a th:href="@{/admin/report}"
-					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-						class="fas fa-paperclip me-2"></i>Reports</a>
-				<a th:href="@{/logout}" sec:authorize="isAuthenticated()"
-					class="list-group-item list-group-item-action bg-transparent text-danger fw-bold">
-					<i class="fas fa-power-off me-2"></i>Logout</a>
-								<a th:href="@{/admin/approval}" class="list-group-item list-groui -item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-chart-line me-2"></i>Approval</a>
-                <a th:href="@{/admin/report}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-paperclip me-2"></i>History</a>
-                <a th:href="@{/admin/stock}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-paperclip me-2"></i>Out of Stock</a>
-                        <a  th:href="@{/logout}" sec:authorize="isAuthenticated()" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold">
-				<i class="fas fa-power-off me-2" ></i>Logout</a>
-
-			</div>
+			<div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom"><i class="	fas fa-book-open me-2"></i>Perpusnas</div>
+			<div class="list-group list-gri up-flush my-3"> <a th:href="@{/admin}" class="list-group-item list-group-item-action bg-transparent second-text active"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+			<a th:href="@{/admin/category}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i class="fas fa-book me-2"></i>Book Category</a>
+			<a th:href="@{/admin/bookList}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i class="fas fa-book me-2"></i>Book</a>
+			<a th:href="@{/admin/approval}" class="list-group-item list-groui -item-action bg-transparent second-text fw-bold"><i class="fas fa-chart-line me-2"></i>Approval</a>
+			<a th:href="@{/admin/report}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i class="fas fa-paperclip me-2"></i>History</a>
+			<a th:href="@{/admin/stock}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i class="fas fa-paperclip me-2"></i>Out of Stock</a>
+			<a th:href="@{/logout}" sec:authorize="isAuthenticated()" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i class="fas fa-power-off me-2"></i>Logout</a>
 		</div>
-		<!-- /#sidebar-wrapper -->
+	</div>
+	<!-- /#sidebar-wrapper -->
 
 		<!-- Page Content -->
 		<div id="page-content-wrapper">
@@ -98,7 +78,6 @@
 							<tbody>
 								<tr th:each="item : ${Approves}">
 									<td th:text="${item.user.firstName} + ' ' + ${item.user.lastName} "></td>
-									<!--<td th:text="${item.user.lastName}"></td>-->
 									<td th:text="${item.Book.book_title}"></td>
 									<td th:text="${item.rent_date}"></td>
 									<td th:text="${item.return_date}"></td>
@@ -113,18 +92,13 @@
 										<a th:href="@{'/admin/history/' + ${item.approve_id} + '?information=Returned'}"
 											class="btn btn-info btn-sm">Returned</a>
 									</td>
-									<script>
-
-									</script>
 								</tr>
 							</tbody>
 						</table>
-						<center>
 							<a href="" th:if = "${approve} == true" onclick="return confirm('Are you sure you want to Approve All?');" th:href="@{/admin/approval/approve-all}" class="btn btn-success"> Approve All
 							</a>
 							<a href="" th:if = "${return} == true" onclick="return confirm('Are you sure you want to Return All?');"  th:href="@{/admin/approval/return-all}" class="btn btn-info"> Return All </a>
 							<a href="" onclick="return confirm('Are you sure you want to Reject All?');" th:href="@{/admin/approval/reject-all}" class="btn btn-danger"> Reject All </a>
-						</center>
 					</div>
 				</div>
 
@@ -132,7 +106,6 @@
 		</div>
 	</div>
 	<!-- /#page-content-wrapper -->
-	</div>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>

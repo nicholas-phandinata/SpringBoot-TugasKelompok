@@ -495,14 +495,16 @@ public class MainController {
 		historyService.addHistory(information, approveId, rentID, ID, bookID, rentDate, returnDate, employee, quantity);
 		return "redirect:/admin/approval";
 	}
+	
 	// Report
 	@RequestMapping("/admin/report")
 	public String report(Model model) {
 		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 		Long currentID =  userService.getCurrentID(currentUserName);
 		System.out.println("id emp "+currentID);
-		List<Approve> displayApprove = approveService.listAllApprove();
-		model.addAttribute("Approves", displayApprove);
+		List<History> disHistories = historyService.listAll();
+		System.out.println(disHistories);
+		model.addAttribute("histrory", disHistories);
 		return ("/admin/report");
 
 	}
@@ -511,9 +513,8 @@ public class MainController {
 			@RequestMapping("/admin/stock")
 			public String stock(Model model) {
 	 			List<Book> displayBooks = bookService.lisNotAvailableBook();
-//	 			System.out.println("Category" + displayCategory);
-	 			model.addAttribute("Books", displayBooks);
-	 			
+	 			System.out.println("book list" + displayBooks);
+	 			model.addAttribute("book", displayBooks);
 	 			return "/admin/stock";
 			}
 			

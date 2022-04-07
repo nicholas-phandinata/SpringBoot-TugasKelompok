@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
 	<meta charset="UTF-8" />
@@ -13,34 +15,20 @@
 
 <body>
 	<div class="d-flex" id="wrapper">
-		<!-- Sidebar -->
+	<!-- Sidebar -->
 		<div class="bg-white" id="sidebar-wrapper">
-			<div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom"><i
-					class="	fas fa-book-open me-2"></i>Perpusnas</div>
-			<div class="list-group list-group-flush my-3">
-				<a th:href="@{/admin}"
-					class="list-group-item list-group-item-action bg-transparent second-text active"><i
-						class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
-				<a th:href="@{/admin/category}"
-					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-						class="fas fa-book me-2"></i>Book Category</a>
-				<a th:href="@{/admin/bookList}"
-					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-						class="fas fa-book me-2"></i>Book</a>
-				<a th:href="@{/admin/approval}" class="list-group-item list-groui -item-action bg-transparent second-text fw-bold"><i
-								<a th:href="@{/admin/approval}" class="list-group-item list-groui -item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-chart-line me-2"></i>Approval</a>
-                <a th:href="@{/admin/report}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-paperclip me-2"></i>Reports</a>
-                        class="fas fa-paperclip me-2"></i>History</a>
-                <a th:href="@{/admin/stock}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-paperclip me-2"></i>Out of Stock</a>
-                        <a  th:href="@{/logout}" sec:authorize="isAuthenticated()" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold">
-				<i class="fas fa-power-off me-2" ></i>Logout</a>
-
-			</div>
+			<div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom"><i class="	fas fa-book-open me-2"></i>Perpusnas</div>
+			<div class="list-group list-gri up-flush my-3"> <a th:href="@{/admin}" class="list-group-item list-group-item-action bg-transparent second-text active"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+			<a th:href="@{/admin/category}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i class="fas fa-book me-2"></i>Book Category</a>
+			<a th:href="@{/admin/bookList}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i class="fas fa-book me-2"></i>Book</a>
+			<a th:href="@{/admin/approval}" class="list-group-item list-groui -item-action bg-transparent second-text fw-bold"><i class="fas fa-chart-line me-2"></i>Approval</a>
+			<a th:href="@{/admin/report}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i class="fas fa-paperclip me-2"></i>History</a>
+			<a th:href="@{/admin/stock}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i class="fas fa-paperclip me-2"></i>Out of Stock</a>
+			<a th:href="@{/logout}" sec:authorize="isAuthenticated()" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i class="fas fa-power-off me-2"></i>Logout</a>
 		</div>
-		<!-- /#sidebar-wrapper -->
+	</div>
+	<!-- /#sidebar-wrapper -->
+
 
 		<!-- Page Content -->
 		<div id="page-content-wrapper">
@@ -163,7 +151,6 @@
 		</div>
 	</div>
 	<!-- /#page-content-wrapper -->
-	</div>
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
 	<script>
