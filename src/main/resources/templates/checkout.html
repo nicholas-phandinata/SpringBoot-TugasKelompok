@@ -68,8 +68,8 @@ th{
 </div>
 	
 	<div class="container mt-4">
-	<div align="center">
-	<h1>My Checkout</h1><br>
+	<h1 align="center">My Checkout</h1><br>
+	<div th:if="${Print}" align="center">
 		<a th:href="@{/export}"
 		 class="btn btn-success btn-sm">Print My Checkout</a>
 	</div>
@@ -98,7 +98,26 @@ th{
 				</tr>
 			</tbody>
 		</table>
-		<br><br>
+	    <div th:if="${Empty}" align="center">
+		<br>
+		<h3>Your checkout is empty</h3>
+		<br>
+		<img
+		th:src="@{/img/sad.png}" alt="gambar tidak muncul"
+		style="width: 100px; height: 100px;">
+		<br><br><br>
+		</div>
+		
+	    <div th:if="${Emoji}" align="center">
+		<br>
+		<h3>Yeay, your checkout(s) is being processed</h3>
+		<br>
+		<img
+		th:src="@{/img/party.png}" alt="gambar tidak muncul"
+		style="width: 100px; height: 100px;">
+		<br><br><br>
+		</div>
+		
 		</div>
 	</div>
 	

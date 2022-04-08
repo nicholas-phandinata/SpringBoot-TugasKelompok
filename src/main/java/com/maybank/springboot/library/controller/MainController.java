@@ -98,7 +98,9 @@ public class MainController {
 		Long currentID =  userService.getCurrentID(currentUserName);
 
 		List<Rent> displayRent = rentService.listRentByUserID(currentID);
-//		System.out.println(displayRent);
+		if(!displayRent.isEmpty()) {
+			model.addAttribute("ShowButtons", "yes");
+		}
 		model.addAttribute("Rents", displayRent);
 		return "rent";
 	}
@@ -150,9 +152,14 @@ public class MainController {
 		Long currentID =  userService.getCurrentID(currentUserName);
 		
 		List<Approve> displayApprove = approveService.listApproveByID(currentID);
+		if(displayApprove.isEmpty()) {
+			model.addAttribute("Empty", "Yes");
+		}
 		for (int i = 0; i < displayApprove.size(); i++) {
 			  if(displayApprove.get(i).getStatus().contentEquals("approved")) {
 				  model.addAttribute("Print", "Yes");
+			  }else if(displayApprove.get(i).getStatus().contentEquals("Pending")) {
+				  model.addAttribute("Emoji", "Yes");
 			  }
 			}
 		model.addAttribute("Approves", displayApprove);

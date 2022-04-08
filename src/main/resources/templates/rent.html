@@ -68,25 +68,24 @@ th{
 </div>
 	
 	<div class="container mt-4">
-	<div align="center">
-		<h1>My Rent Cart</h1><br>
+	<h1 align="center">My Rent Cart</h1><br>
+	<div th:if="${ShowButtons}" align="center">
 				<a th:href="@{/cancel-all}"
 		 class="btn btn-danger btn-sm">Cancel All</a>
 		<a th:href="@{/checkout-all}"
 		 class="btn btn-success btn-sm">Checkout All</a>
-		 </div>
+	</div>
 		 <br><br>
 	<div align="center" class="table-responsive table-hover">
 		<table border="1" cellpadding="10">
 			<thead>
 				<tr>
-					<th>Book Title</th>
-					<th>Book Author</th>
-					<th>Book Publisher</th>
-					<th>Rent Date</th>
-					<th>Return Date</th>
-					<th>Cancel</th>
-					<th>Confirm</th>
+					<th style="text-align:center">Book Title</th>
+					<th style="text-align:center">Book Author</th>
+					<th style="text-align:center">Book Publisher</th>
+					<th style="text-align:center">Rent Date</th>
+					<th style="text-align:center">Return Date</th>
+					<th style="text-align:center">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -97,12 +96,21 @@ th{
 					<td th:text="${item.rent_date}"></td>
 					<td th:text="${item.return_date}"></td>
 					<td><a th:href="@{'/deleteRent/' + ${item.rent_id}}"
-						class="btn btn-danger btn-sm"><img th:src="@{/img/cancel.png}" style="width:26px;height:26px;"></a></td>
-					<td><a th:href="@{'/addCheckout/' + ${item.rent_id}}"
+						class="btn btn-danger btn-sm"><img th:src="@{/img/cancel.png}" style="width:26px;height:26px;"></a>&nbsp;&nbsp;
+					<a th:href="@{'/addCheckout/' + ${item.rent_id}}"
 						class="btn btn-success btn-sm"><img th:src="@{/img/cart.png}" style="width:26px;height:26px;"></a></td>
 				</tr>
 			</tbody>
 		</table>
+	</div>
+		<div th:if="not ${ShowButtons}" align="center">
+		<br>
+		<h3>Your cart is empty</h3>
+		<br>
+		<img
+		th:src="@{/img/sad.png}" alt="gambar tidak muncul"
+		style="width: 100px; height: 100px;">
+		<br><br><br>
 	</div>
 	</div>
 	
