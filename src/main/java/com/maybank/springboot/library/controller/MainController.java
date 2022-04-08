@@ -224,6 +224,9 @@ public class MainController {
 			}
 		}else {
 			List<History> displayHistory = historyService.listHistoryByID(currentID);
+			if(displayHistory.isEmpty()) {
+				model.addAttribute("NoHistory", "Yes");
+			}
 			model.addAttribute("Histories", displayHistory);
 		}
 		return "history";

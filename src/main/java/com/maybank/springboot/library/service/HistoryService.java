@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import com.maybank.springboot.library.model.History;
-import com.maybank.springboot.library.model.Rent;
 
 @Service
 public interface HistoryService {

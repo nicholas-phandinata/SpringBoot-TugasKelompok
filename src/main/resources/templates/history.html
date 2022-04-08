@@ -123,6 +123,16 @@ th{
 		<br><br><br>
 	</div>
 	
+	<div th:if="${NoHistory}" align="center">
+		<br>
+		<h3>Your history is empty</h3>
+		<br>
+		<img
+		th:src="@{/img/sad.png}" alt="gambar tidak muncul"
+		style="width: 100px; height: 100px;">
+		<br><br><br>
+	</div>
+	
 	
 <!-- Footer -->
   <footer  id="sticky-footer"
